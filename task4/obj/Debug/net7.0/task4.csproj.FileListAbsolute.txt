@@ -1,0 +1,60 @@
+C:\Users\edgar\Desktop\task4\task4\bin\Debug\net7.0\task4.exe
+C:\Users\edgar\Desktop\task4\task4\bin\Debug\net7.0\task4.deps.json
+C:\Users\edgar\Desktop\task4\task4\bin\Debug\net7.0\task4.runtimeconfig.json
+C:\Users\edgar\Desktop\task4\task4\bin\Debug\net7.0\task4.dll
+C:\Users\edgar\Desktop\task4\task4\bin\Debug\net7.0\task4.pdb
+C:\Users\edgar\Desktop\task4\task4\obj\Debug\net7.0\task4.csproj.AssemblyReference.cache
+C:\Users\edgar\Desktop\task4\task4\obj\Debug\net7.0\task4.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\edgar\Desktop\task4\task4\obj\Debug\net7.0\task4.AssemblyInfoInputs.cache
+C:\Users\edgar\Desktop\task4\task4\obj\Debug\net7.0\task4.AssemblyInfo.cs
+C:\Users\edgar\Desktop\task4\task4\obj\Debug\net7.0\task4.csproj.CoreCompileInputs.cache
+C:\Users\edgar\Desktop\task4\task4\obj\Debug\net7.0\task4.dll
+C:\Users\edgar\Desktop\task4\task4\obj\Debug\net7.0\refint\task4.dll
+C:\Users\edgar\Desktop\task4\task4\obj\Debug\net7.0\task4.pdb
+C:\Users\edgar\Desktop\task4\task4\obj\Debug\net7.0\task4.genruntimeconfig.cache
+C:\Users\edgar\Desktop\task4\task4\obj\Debug\net7.0\ref\task4.dll
+C:\Users\edgar\Work\С#\task4\task4\bin\Debug\net7.0\task4.exe
+C:\Users\edgar\Work\С#\task4\task4\bin\Debug\net7.0\task4.deps.json
+C:\Users\edgar\Work\С#\task4\task4\bin\Debug\net7.0\task4.runtimeconfig.json
+C:\Users\edgar\Work\С#\task4\task4\bin\Debug\net7.0\task4.dll
+C:\Users\edgar\Work\С#\task4\task4\bin\Debug\net7.0\task4.pdb
+C:\Users\edgar\Work\С#\task4\task4\obj\Debug\net7.0\task4.csproj.AssemblyReference.cache
+C:\Users\edgar\Work\С#\task4\task4\obj\Debug\net7.0\task4.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\edgar\Work\С#\task4\task4\obj\Debug\net7.0\task4.AssemblyInfoInputs.cache
+C:\Users\edgar\Work\С#\task4\task4\obj\Debug\net7.0\task4.AssemblyInfo.cs
+C:\Users\edgar\Work\С#\task4\task4\obj\Debug\net7.0\task4.csproj.CoreCompileInputs.cache
+C:\Users\edgar\Work\С#\task4\task4\obj\Debug\net7.0\task4.dll
+C:\Users\edgar\Work\С#\task4\task4\obj\Debug\net7.0\refint\task4.dll
+C:\Users\edgar\Work\С#\task4\task4\obj\Debug\net7.0\task4.pdb
+C:\Users\edgar\Work\С#\task4\task4\obj\Debug\net7.0\task4.genruntimeconfig.cache
+C:\Users\edgar\Work\С#\task4\task4\obj\Debug\net7.0\ref\task4.dll
+C:\Users\edgar\Work\Programming language_c#_same_the best\С#\task4\task4\bin\Debug\net7.0\task4.exe
+C:\Users\edgar\Work\Programming language_c#_same_the best\С#\task4\task4\bin\Debug\net7.0\task4.deps.json
+C:\Users\edgar\Work\Programming language_c#_same_the best\С#\task4\task4\bin\Debug\net7.0\task4.runtimeconfig.json
+C:\Users\edgar\Work\Programming language_c#_same_the best\С#\task4\task4\bin\Debug\net7.0\task4.dll
+C:\Users\edgar\Work\Programming language_c#_same_the best\С#\task4\task4\bin\Debug\net7.0\task4.pdb
+C:\Users\edgar\Work\Programming language_c#_same_the best\С#\task4\task4\obj\Debug\net7.0\task4.csproj.AssemblyReference.cache
+C:\Users\edgar\Work\Programming language_c#_same_the best\С#\task4\task4\obj\Debug\net7.0\task4.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\edgar\Work\Programming language_c#_same_the best\С#\task4\task4\obj\Debug\net7.0\task4.AssemblyInfoInputs.cache
+C:\Users\edgar\Work\Programming language_c#_same_the best\С#\task4\task4\obj\Debug\net7.0\task4.AssemblyInfo.cs
+C:\Users\edgar\Work\Programming language_c#_same_the best\С#\task4\task4\obj\Debug\net7.0\task4.csproj.CoreCompileInputs.cache
+C:\Users\edgar\Work\Programming language_c#_same_the best\С#\task4\task4\obj\Debug\net7.0\task4.dll
+C:\Users\edgar\Work\Programming language_c#_same_the best\С#\task4\task4\obj\Debug\net7.0\refint\task4.dll
+C:\Users\edgar\Work\Programming language_c#_same_the best\С#\task4\task4\obj\Debug\net7.0\task4.pdb
+C:\Users\edgar\Work\Programming language_c#_same_the best\С#\task4\task4\obj\Debug\net7.0\task4.genruntimeconfig.cache
+C:\Users\edgar\Work\Programming language_c#_same_the best\С#\task4\task4\obj\Debug\net7.0\ref\task4.dll
+C:\Users\edgar\Desktop\С#\task4\bin\Debug\net7.0\task4.exe
+C:\Users\edgar\Desktop\С#\task4\bin\Debug\net7.0\task4.deps.json
+C:\Users\edgar\Desktop\С#\task4\bin\Debug\net7.0\task4.runtimeconfig.json
+C:\Users\edgar\Desktop\С#\task4\bin\Debug\net7.0\task4.dll
+C:\Users\edgar\Desktop\С#\task4\bin\Debug\net7.0\task4.pdb
+C:\Users\edgar\Desktop\С#\task4\obj\Debug\net7.0\task4.csproj.AssemblyReference.cache
+C:\Users\edgar\Desktop\С#\task4\obj\Debug\net7.0\task4.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\edgar\Desktop\С#\task4\obj\Debug\net7.0\task4.AssemblyInfoInputs.cache
+C:\Users\edgar\Desktop\С#\task4\obj\Debug\net7.0\task4.AssemblyInfo.cs
+C:\Users\edgar\Desktop\С#\task4\obj\Debug\net7.0\task4.csproj.CoreCompileInputs.cache
+C:\Users\edgar\Desktop\С#\task4\obj\Debug\net7.0\task4.dll
+C:\Users\edgar\Desktop\С#\task4\obj\Debug\net7.0\refint\task4.dll
+C:\Users\edgar\Desktop\С#\task4\obj\Debug\net7.0\task4.pdb
+C:\Users\edgar\Desktop\С#\task4\obj\Debug\net7.0\task4.genruntimeconfig.cache
+C:\Users\edgar\Desktop\С#\task4\obj\Debug\net7.0\ref\task4.dll
