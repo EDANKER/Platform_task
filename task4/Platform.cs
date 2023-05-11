@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Reflection.Metadata;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -19,18 +20,33 @@ public class Platform
             switch (input)
             {
                 case "1":
-                    using (FileStream fileStream =
-                           new FileStream(@"C:\Users\edgar\Desktop\students.json", FileMode.OpenOrCreate))
-                    {
-                        var pathPlatform = @"C:\Users\edgar\Desktop\students.json";
-                        Console.Write("выбирите ячейку для изменения");
-                        foreach (var id in pathPlatform)
-                        {
-                            Console.WriteLine(id);
-                        }
-                    }
+                   string pathreadtext = (File.ReadAllText(@"C:\Users\edgar\Desktop\students.json"));
+                   var listread = JsonConvert.DeserializeObject<List<Construct>>(pathreadtext);
+                   
+                   foreach (var read in listread)
+                   {
+                       if (read != null)
+                       {
+                           Console.Write($"у вас имеються ячейки: {read._id} ");
+                           Thread.Sleep(5000);
+                           Console.Write("какую ячейку выбирите? ");
+                           var idtext = Console.ReadLine();
 
-                    break;
+                           if (read._id == idtext)
+                           {
+                           
+                           
+                           }
+                       }
+
+                       else
+                       {
+                           Console.WriteLine("файил пуст");
+                       }
+                       
+                   }
+                   
+                   break;
                 case "2":
                     using (FileStream fileStream =
                            new FileStream(@"C:\Users\edgar\Desktop\students.json", FileMode.OpenOrCreate))
