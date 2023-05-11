@@ -1,4 +1,9 @@
+using System.Reflection.Metadata;
 using System.Text.Json;
+using System.Text.Json.Serialization;
+using Newtonsoft.Json;
+using JsonSerializer = System.Text.Json.JsonSerializer;
+using System.Linq;
 
 namespace Microsoft;
 
@@ -15,6 +20,16 @@ public class Platform
             switch (input)
             {
                 case "1":
+                    using (FileStream fileStream =
+                           new FileStream(@"C:\Users\edgar\Desktop\students.json", FileMode.OpenOrCreate))
+                    {
+                        var pathPlatform = @"C:\Users\edgar\Desktop\students.json";
+                        Console.Write("выбирите ячейку для изменения");
+                        foreach (var id in pathPlatform)
+                        {
+                            Console.WriteLine(id);
+                        }
+                    }
 
                     break;
                 case "2":
@@ -49,7 +64,7 @@ public class Platform
 
                     break;
                 case "3":
-                    string path = (File.ReadAllText(@"C:\Users\edgar\Desktop\students.json"));
+                    string path = (File.ReadAllText(File.ReadAllText(@"C:\Users\edgar\Desktop\students.json")));
                     using (var jsonDoc = JsonDocument.Parse(path))
                     {
                         foreach (var json in jsonDoc.RootElement.EnumerateObject())
@@ -58,16 +73,15 @@ public class Platform
                             {
                                 Console.WriteLine("файл пуст");
                             }
-
+ 
                             else
                             {
                                 Console.WriteLine($" {json.Name} {json.Value}");
                             }
                         }
-
+ 
                         Console.ReadKey();
                     }
-
                     break;
                 case "4":
                     Console.Clear();

@@ -1,5 +1,6 @@
 using System.Text;
 using System.Text.Json;
+using Newtonsoft.Json;
 
 namespace Microsoft;
 
@@ -19,6 +20,8 @@ public class Type
                     using (FileStream fileStream =
                            new FileStream(@"C:\Users\edgar\Desktop\objects.json", FileMode.OpenOrCreate))
                     {
+                        
+                        
                     }
 
                     break;
@@ -26,25 +29,7 @@ public class Type
 
                     break;
                 case "3":
-                    string path = (File.ReadAllText(@"C:\Users\edgar\Desktop\students.json"));
-                    using (var jsonDoc = JsonDocument.Parse(path))
-                    {
-                        foreach (var json in jsonDoc.RootElement.EnumerateObject())
-                        {
-                            if (json.Name.Length == 0)
-                            {
-                                Console.WriteLine("файл пуст");
-                            }
-
-                            else
-                            {
-                                Console.WriteLine($" {json.Name} {json.Value}");
-                            }
-                        }
-
-                        Console.ReadKey();
-                    }
-
+                   
                     break;
                 case "4":
                     Console.Clear();
