@@ -3,13 +3,12 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using Newtonsoft.Json;
 using JsonSerializer = System.Text.Json.JsonSerializer;
-using System.Linq;
 
 namespace Microsoft;
 
 public class Platform
 {
-    public int Platformtext()
+    public string Platformtext()
     {
         while (true)
         {
@@ -54,34 +53,23 @@ public class Platform
 
                         else
                         {
-                            Construct construct = new Construct($"{id}:", platforminput, targetinput, typeinput);
+                            Construct construct = new Construct(id, platforminput, targetinput, typeinput);
                             List<Construct> list = new List<Construct>();
                             list.Add(construct);
                             JsonSerializer.Serialize(fileStream, list);
                             Console.WriteLine("файл сохранен");
                         }
                     }
-
                     break;
                 case "3":
-                    string path = (File.ReadAllText(File.ReadAllText(@"C:\Users\edgar\Desktop\students.json")));
-                    using (var jsonDoc = JsonDocument.Parse(path))
+                    string path = (File.ReadAllText(@"C:\Users\edgar\Desktop\students.json"));
+                    var listdes = JsonConvert.DeserializeObject<List<Construct>>(path);
+
+                    foreach (var listfor in listdes)
                     {
-                        foreach (var json in jsonDoc.RootElement.EnumerateObject())
-                        {
-                            if (json.Name.Length == 0)
-                            {
-                                Console.WriteLine("файл пуст");
-                            }
- 
-                            else
-                            {
-                                Console.WriteLine($" {json.Name} {json.Value}");
-                            }
-                        }
- 
-                        Console.ReadKey();
+                        Console.WriteLine($"id: {listfor._id} platform: {listfor._platform} type: {listfor._type} target: {listfor._target}");
                     }
+                    
                     break;
                 case "4":
                     Console.Clear();
