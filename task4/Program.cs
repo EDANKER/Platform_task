@@ -1,3 +1,6 @@
+using task4;
+using Type = task4.Type;
+
 namespace Microsoft
 {
     class Programm

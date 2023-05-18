@@ -1,8 +1,6 @@
-using System.Text;
-using System.Text.Json;
-using Newtonsoft.Json;
+using Microsoft;
 
-namespace Microsoft;
+namespace task4;
 
 public class Type
 {

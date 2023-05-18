@@ -1,11 +1,9 @@
-using System.Diagnostics;
-using System.Reflection.Metadata;
 using System.Text.Json;
-using System.Text.Json.Serialization;
+using Microsoft;
 using Newtonsoft.Json;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 
-namespace Microsoft;
+namespace task4;
 
 public class Platform
 {
@@ -20,33 +18,41 @@ public class Platform
             switch (input)
             {
                 case "1":
-                   string pathreadtext = (File.ReadAllText(@"C:\Users\edgar\Desktop\students.json"));
-                   var listread = JsonConvert.DeserializeObject<List<Construct>>(pathreadtext);
+                    try
+                    {
+                        string pathReadText = (File.ReadAllText(@"C:\Users\edgar\Desktop\students.json"));
+                        var listRead = JsonConvert.DeserializeObject<List<Construct>>(pathReadText);
                    
-                   foreach (var read in listread)
-                   {
-                       if (read != null)
-                       {
-                           Console.Write($"у вас имеються ячейки: {read._id} ");
-                           Thread.Sleep(5000);
-                           Console.Write("какую ячейку выбирите? ");
-                           var idtext = Console.ReadLine();
-
-                           if (read._id == idtext)
-                           {
+                        foreach (var read in listRead)
+                        {
+                            Console.WriteLine($"у вас имеються ячейки: {read.Id} ");
                            
-                           
-                           }
-                       }
+                            Console.ReadKey(); 
+                            Console.Write("какую ячейку выбирите? ");
+                            var idText = Console.ReadLine();
 
-                       else
-                       {
-                           Console.WriteLine("файил пуст");
-                       }
-                       
-                   }
-                   
-                   break;
+                            if (read.Id == idText)
+                            {
+                                while (true)
+                                {
+                                    Console.WriteLine($"вы у поля {read.Id}");
+                                    Console.Write($"вы точно хотите заменить platform {read.Id} ");
+                                    Console.ReadLine();
+                                    if (input == "да")
+                                    {
+                                        Console.WriteLine("good");
+                                    }
+                                    
+                                }
+                            }
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("файл пуст");
+                    }
+                    
+                    break;
                 case "2":
                     using (FileStream fileStream =
                            new FileStream(@"C:\Users\edgar\Desktop\students.json", FileMode.OpenOrCreate))
@@ -60,9 +66,9 @@ public class Platform
                         Console.Write("выбирите Target: ");
                         var targetinput = Console.ReadLine();
 
-                        if (typeinput.Length == 0 || targetinput.Length == 0 || platforminput.Length == 0)
+                        if (typeinput.Length == 0 || targetinput.Length == 0 || platforminput.Length == 0 || id.Length == 0)
                         {
-                            Console.WriteLine("ваш type или target или platfom пуст \nпопробуйте снова нажми enter");
+                            Console.WriteLine("ваш type или target или platfom пуст или id \nпопробуйте снова нажми enter");
                             Console.ReadKey();
                             Console.Clear();
                         }
@@ -78,12 +84,19 @@ public class Platform
                     }
                     break;
                 case "3":
-                    string path = (File.ReadAllText(@"C:\Users\edgar\Desktop\students.json"));
-                    var listdes = JsonConvert.DeserializeObject<List<Construct>>(path);
-
-                    foreach (var listfor in listdes)
+                    try
                     {
-                        Console.WriteLine($"id: {listfor._id} platform: {listfor._platform} type: {listfor._type} target: {listfor._target}");
+                        string path = (File.ReadAllText(@"C:\Users\edgar\Desktop\students.json"));
+                        var listdes = JsonConvert.DeserializeObject<List<Construct>>(path);
+                        
+                        foreach (var listfor in listdes)
+                        {
+                                Console.WriteLine($"id: {listfor.Id} platform: {listfor.Platform} type: {listfor.Type} target: {listfor.Target} ");
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("файл пуст");
                     }
                     
                     break;

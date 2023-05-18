@@ -1,6 +1,8 @@
-using System.Text.Json;
+using Microsoft;
+using Newtonsoft.Json;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
-namespace Microsoft;
+namespace task4;
 
 public class Target
 {
@@ -23,35 +25,61 @@ public class Target
                         foreach (var list in listtype)
                         {
                             Console.Write("выбирите id строки какой хотите заменить: ");
-                            list._id = Console.ReadLine();
-                            Console.Write($"Замените type у {list._id}: ");
-                            JsonSerializer.Serialize(fileStream, list._id);
+                            list.Id = Console.ReadLine();
+                            Console.Write($"Замените type у {list.Id}: ");
+                            JsonSerializer.Serialize(fileStream, list.Id);
                             var type = Console.ReadLine();
                         }
                     }
 
                     break;
                 case "2":
-
-                    break;
-                case "3":
-                    string path = (File.ReadAllText(@"C:\Users\edgar\Desktop\students.json"));
-                    using (var jsonDoc = JsonDocument.Parse(path))
+                    
+                    try
                     {
-                        foreach (var json in jsonDoc.RootElement.EnumerateObject())
+                        string pathtargetlist = @"C:\Users\edgar\Desktop\Data.json";
+                        using (FileStream fileStream = new FileStream(pathtargetlist, FileMode.OpenOrCreate))
                         {
-                            if (json.Name.Length == 0)
+                            Console.Write("какой таргет хотите добавить?: ");
+                            var listtarget = Console.ReadLine();
+
+                            if (listtarget.Length == 0)
                             {
-                                Console.WriteLine("файл пуст");
+                                Console.WriteLine("вы не чего не написали");
                             }
 
                             else
                             {
-                                Console.WriteLine($" {json.Name} {json.Value}");
+                                Targetlist targetlist = new Targetlist(listtarget);
+                                List<Targetlist> list = new List<Targetlist>();
+                                list.Add(targetlist);
+                                JsonSerializer.Serialize(fileStream, list);
+                                Console.WriteLine("файл записан");
                             }
+                        }
+                    }
+
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("файи пуст");
+                    }
+                    break;
+                case "3":
+                    string pathtargeopen = @"C:\Users\edgar\Desktop\Data.json";
+                    string listtargetopen = (File.ReadAllText(pathtargeopen));
+                    var readrarget = JsonConvert.DeserializeObject<List<Targetlist>>(listtargetopen);
+                    try
+                    {
+                        foreach (var jsontargetlist in readrarget)
+                        {
+                            Console.WriteLine(jsontargetlist.Targetspisok);
                         }
 
                         Console.ReadKey();
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("айил пуст");
                     }
 
                     break;
