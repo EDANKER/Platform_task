@@ -17,34 +17,38 @@ public class Type
             switch (input)
             {
                 case "1":
-                    using (FileStream fileStream =
-                           new FileStream(@"C:\Users\edgar\Desktop\objects.json", FileMode.OpenOrCreate))
+                    try
                     {
-                        
-                        
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("ваш json неверный");
                     }
 
                     break;
                 case "2":
                     try
                     {
-                        string pathtargetlist = @"C:\Users\edgar\Desktop\objects.json";
-                        using (FileStream fileStream = new FileStream(pathtargetlist, FileMode.OpenOrCreate))
+                        string path = @"C:\Users\edgar\Desktop\objects.json";
+                        var typeread = (File.ReadAllText(path));
+                        var read = JsonConvert.DeserializeObject<List<Typelist>>(typeread);
+
+                        Console.Write("какой тип хотите добавить?: ");
+                        var listtyperead = Console.ReadLine();
+
+                        if (listtyperead.Length == 0)
                         {
-                            Console.Write("какой тип хотите добавить?: ");
-                            var listtyperead = Console.ReadLine();
+                            Console.WriteLine("вы не чего не написали");
+                        }
 
-                            if (listtyperead.Length == 0)
-                            {
-                                Console.WriteLine("вы не чего не написали");
-                            }
-
-                            else
+                        else
+                        {
+                            using (StreamWriter streamWriter = new StreamWriter(path, false))
                             {
                                 Typelist typelist = new Typelist(listtyperead);
-                                List<Typelist> listtype = new List<Typelist>();
-                                listtype.Add(typelist);
-                                JsonSerializer.Serialize(fileStream, listtype);
+                                read?.Add(typelist);
+                                var json = JsonSerializer.Serialize(read);
+                                streamWriter.WriteLine(json);
                                 Console.WriteLine("файл записан");
                             }
                         }
@@ -72,7 +76,7 @@ public class Type
                     }
                     catch (Exception e)
                     {
-                        Console.WriteLine("айил пуст");
+                        Console.WriteLine("фаил пуст");
                     }
 
                     break;

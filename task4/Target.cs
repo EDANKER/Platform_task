@@ -23,14 +23,13 @@ public class Target
                         string listtargetraname = (File.ReadAllText(pathtargetraname));
                         var read = JsonConvert.DeserializeObject<List<Targetlist>>(listtargetraname);
 
+                        foreach (var jsontext in read)
+                        {
+                            Console.WriteLine($"у вас есть таргеты {jsontext.TargetSpisok}");
+                        }
+                        
                         foreach (var jsonraname in read)
                         {
-                            while (true)
-                            {
-                                Console.WriteLine($"у вас есть таргеты {jsonraname.TargetSpisok}");
-                                Console.ReadKey();
-                                break;
-                            }
                             Console.Write("какой target вы хотите изменить: ");
                             var renametarget = Console.ReadLine();
                             if (jsonraname.TargetSpisok == renametarget)
@@ -45,7 +44,12 @@ public class Target
 
                                 else
                                 {
-                                
+                                    string pathrename = @"C:\Users\edgar\Desktop\Data.json";
+                                    using (FileStream fileStream = new FileStream(pathrename, FileMode.OpenOrCreate))
+                                    {
+                                        JsonSerializer.Serialize(fileStream, renametarget);
+                                        Console.WriteLine("файил записан");
+                                    }
                                 }
                             }
 
@@ -68,8 +72,8 @@ public class Target
                     try
                     {
                         string pathtargetlist = @"C:\Users\edgar\Desktop\Data.json";
-                        using (FileStream fileStream = new FileStream(pathtargetlist, FileMode.OpenOrCreate))
-                        {
+                        var readlist = (File.ReadAllText(pathtargetlist));
+                        var read = JsonConvert.DeserializeObject<List<Targetlist>>(readlist);
                             Console.Write("какой таргет хотите добавить?: ");
                             var listtarget = Console.ReadLine();
 
@@ -80,19 +84,22 @@ public class Target
 
                             else
                             {
-                                Targetlist targetlist = new Targetlist(listtarget);
-                                List<Targetlist> list = new List<Targetlist>();
-                                list.Add(targetlist);
-                                JsonSerializer.Serialize(fileStream, list);
-                                Console.WriteLine("файл записан");
+                                using (StreamWriter streamReader = new StreamWriter(pathtargetlist, false))
+                                {
+                                    Targetlist targetlist = new Targetlist(listtarget);
+                                    read?.Add(targetlist);
+                                    var jsontarget = JsonSerializer.Serialize(read);
+                                    streamReader.WriteLine(jsontarget);
+                                    Console.WriteLine("файл записан");
+                                }
                             }
-                        }
                     }
 
                     catch (Exception e)
                     {
                         Console.WriteLine("файи пуст");
                     }
+
                     break;
                 case "3":
                     string pathtargeopen = @"C:\Users\edgar\Desktop\Data.json";
@@ -111,6 +118,7 @@ public class Target
                     {
                         Console.WriteLine("Фаил пуст");
                     }
+
                     break;
                 case "4":
                     Console.Clear();

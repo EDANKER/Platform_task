@@ -42,7 +42,7 @@ namespace Microsoft
                         Console.WriteLine(Target.Targertext());
                         break;
                     default:
-                        Console.WriteLine("не верный ответ");
+                        Console.WriteLine("неверный ответ");
                         break;
                 }
             }
