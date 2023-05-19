@@ -17,24 +17,54 @@ public class Target
             switch (input)
             {
                 case "1":
-                    using (FileStream fileStream =
-                           new FileStream(@"C:\Users\edgar\Desktop\objects.json", FileMode.OpenOrCreate))
+                    try
                     {
-                        List<Construct> listtype = new List<Construct>();
+                        string pathtargetraname = @"C:\Users\edgar\Desktop\Data.json";
+                        string listtargetraname = (File.ReadAllText(pathtargetraname));
+                        var read = JsonConvert.DeserializeObject<List<Targetlist>>(listtargetraname);
 
-                        foreach (var list in listtype)
+                        foreach (var jsonraname in read)
                         {
-                            Console.Write("выбирите id строки какой хотите заменить: ");
-                            list.Id = Console.ReadLine();
-                            Console.Write($"Замените type у {list.Id}: ");
-                            JsonSerializer.Serialize(fileStream, list.Id);
-                            var type = Console.ReadLine();
+                            while (true)
+                            {
+                                Console.WriteLine($"у вас есть таргеты {jsonraname.TargetSpisok}");
+                                Console.ReadKey();
+                                break;
+                            }
+                            Console.Write("какой target вы хотите изменить: ");
+                            var renametarget = Console.ReadLine();
+                            if (jsonraname.TargetSpisok == renametarget)
+                            {
+                                Console.WriteLine($"вы у строки {renametarget}");
+                                Console.Write($"на какую строку вы хотите заменить {renametarget}: ");
+                                var renameinput = Console.ReadLine();
+                                if (renameinput.Length == 0)
+                                {
+                                    Console.WriteLine("нельзя перезаписать на пустую строку");
+                                }
+
+                                else
+                                {
+                                
+                                }
+                            }
+
+                            else
+                            {
+                                Console.WriteLine("такого поля нет");
+                            }
+
+                            Console.ReadKey();
                         }
                     }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("ваш json кривой");
+                    }
 
+                    Console.ReadKey();
                     break;
                 case "2":
-                    
                     try
                     {
                         string pathtargetlist = @"C:\Users\edgar\Desktop\Data.json";
@@ -72,16 +102,15 @@ public class Target
                     {
                         foreach (var jsontargetlist in readrarget)
                         {
-                            Console.WriteLine(jsontargetlist.Targetspisok);
+                            Console.WriteLine(jsontargetlist.TargetSpisok);
                         }
 
                         Console.ReadKey();
                     }
                     catch (Exception e)
                     {
-                        Console.WriteLine("айил пуст");
+                        Console.WriteLine("Фаил пуст");
                     }
-
                     break;
                 case "4":
                     Console.Clear();

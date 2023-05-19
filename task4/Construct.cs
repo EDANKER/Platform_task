@@ -18,10 +18,20 @@ public class Construct
 
 public class Targetlist
 {
-    public string? Targetspisok { get; set; }
+    public string? TargetSpisok { get; set; }
 
-    public Targetlist(string target)
+    public Targetlist(string targetSpisok)
     {
-        Targetspisok = target;
+        TargetSpisok = targetSpisok;
+    }
+}
+
+public class Typelist
+{
+    public string? TypeSpisok { get; set; }
+
+    public Typelist(string typeSpisok)
+    {
+        TypeSpisok = typeSpisok;
     }
 }

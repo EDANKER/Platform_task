@@ -1,4 +1,3 @@
-using System.Text.Json;
 using Microsoft;
 using Newtonsoft.Json;
 using JsonSerializer = System.Text.Json.JsonSerializer;
@@ -22,12 +21,12 @@ public class Platform
                     {
                         string pathReadText = (File.ReadAllText(@"C:\Users\edgar\Desktop\students.json"));
                         var listRead = JsonConvert.DeserializeObject<List<Construct>>(pathReadText);
-                   
+
                         foreach (var read in listRead)
                         {
                             Console.WriteLine($"у вас имеються ячейки: {read.Id} ");
-                           
-                            Console.ReadKey(); 
+
+                            Console.ReadKey();
                             Console.Write("какую ячейку выбирите? ");
                             var idText = Console.ReadLine();
 
@@ -42,7 +41,6 @@ public class Platform
                                     {
                                         Console.WriteLine("good");
                                     }
-                                    
                                 }
                             }
                         }
@@ -51,12 +49,15 @@ public class Platform
                     {
                         Console.WriteLine("файл пуст");
                     }
-                    
+
                     break;
                 case "2":
                     using (FileStream fileStream =
                            new FileStream(@"C:\Users\edgar\Desktop\students.json", FileMode.OpenOrCreate))
                     {
+                        bool istype = false;
+                        bool isTarget = false;
+                        
                         Console.Write("выбирите свободную ячейку: ");
                         var id = Console.ReadLine();
                         Console.Write("выбирите PLatform: ");
@@ -66,39 +67,83 @@ public class Platform
                         Console.Write("выбирите Target: ");
                         var targetinput = Console.ReadLine();
 
-                        if (typeinput.Length == 0 || targetinput.Length == 0 || platforminput.Length == 0 || id.Length == 0)
+                        if (typeinput.Length == 0 || targetinput.Length == 0 || platforminput.Length == 0 ||
+                            id.Length == 0)
                         {
-                            Console.WriteLine("ваш type или target или platfom пуст или id \nпопробуйте снова нажми enter");
+                            Console.WriteLine(
+                                "ваш type или target или platfom пуст или id \nпопробуйте снова нажми enter");
                             Console.ReadKey();
                             Console.Clear();
                         }
 
                         else
                         {
-                            Construct construct = new Construct(id, platforminput, targetinput, typeinput);
-                            List<Construct> list = new List<Construct>();
-                            list.Add(construct);
-                            JsonSerializer.Serialize(fileStream, list);
-                            Console.WriteLine("файл сохранен");
+                            string pathtargeopen = @"C:\Users\edgar\Desktop\Data.json";
+                            string pathtypeopen = @"C:\Users\edgar\Desktop\objects.json";
+                            string listtypeopen = (File.ReadAllText(pathtypeopen));
+                            string listtargetopen = (File.ReadAllText(pathtargeopen));
+                            var prowType = JsonConvert.DeserializeObject<List<Typelist>>(listtypeopen);
+                            var prowTarget = JsonConvert.DeserializeObject<List<Targetlist>>(listtargetopen);
+                            foreach (var jsontarget in prowTarget)
+                            {
+                                if (jsontarget.TargetSpisok == targetinput)
+                                {
+                                    isTarget = true;
+                                }
+
+                                else
+                                {
+                                    Console.WriteLine("отказзано мы не нашли такое в нашей базе данных target");
+                                }
+                            }
+
+                            foreach (var jsontype in prowType)
+                            {
+                                if (jsontype.TypeSpisok == typeinput)
+                                {
+                                    istype = true;
+                                }
+
+                                else
+                                { 
+                                    Console.WriteLine("отказзано мы не нашли такое в нашей базе данных type");
+                                }
+                            }
+
+                            if (istype && isTarget)
+                            {
+                                Construct construct = new Construct(id, platforminput, targetinput, typeinput);
+                                List<Construct> list = new List<Construct>();
+                                list.Add(construct);
+                                JsonSerializer.Serialize(fileStream, list);
+                                Console.WriteLine("файл сохранен");
+                            }
+
+                            else
+                            {
+                                Console.WriteLine("увы вы дурак");
+                            }
                         }
                     }
+
                     break;
                 case "3":
                     try
                     {
                         string path = (File.ReadAllText(@"C:\Users\edgar\Desktop\students.json"));
                         var listdes = JsonConvert.DeserializeObject<List<Construct>>(path);
-                        
+
                         foreach (var listfor in listdes)
                         {
-                                Console.WriteLine($"id: {listfor.Id} platform: {listfor.Platform} type: {listfor.Type} target: {listfor.Target} ");
+                            Console.WriteLine(
+                                $"id: {listfor.Id} platform: {listfor.Platform} type: {listfor.Type} target: {listfor.Target} ");
                         }
                     }
                     catch (Exception e)
                     {
                         Console.WriteLine("файл пуст");
                     }
-                    
+
                     break;
                 case "4":
                     Console.Clear();
