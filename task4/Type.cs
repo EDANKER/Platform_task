@@ -48,7 +48,7 @@ public class Type
 
                                 else
                                 {
-                                    string pathrename = @"C:\Users\edgar\Desktop\Data.json";
+                                    string pathrename = @"C:\Users\edgar\Desktop\objects.json";
                                     using (StreamWriter streamWriter = new StreamWriter(pathrename, false))
                                     {
                                         int index = list.IndexOf(renametype);

@@ -30,8 +30,7 @@ public class Target
                             list.Add(jsontext.TargetSpisok);
                             Console.WriteLine($"у вас есть таргеты {jsontext.TargetSpisok}");
                         }
-
-
+                        
                         Console.Write("какой target вы хотите изменить: ");
                         var renametarget = Console.ReadLine();
                         if (list.Contains(renametarget))

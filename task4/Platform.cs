@@ -19,37 +19,118 @@ public class Platform
                 case "1":
                     try
                     {
-                        string pathReadText = (File.ReadAllText(@"C:\Users\edgar\Desktop\students.json"));
-                        var listRead = JsonConvert.DeserializeObject<List<Construct>>(pathReadText);
+                        string pathtypeopen = @"C:\Users\edgar\Desktop\objects.json";
+                        string pathtargetraname = @"C:\Users\edgar\Desktop\students.json";
+                        string listtargetraname = (File.ReadAllText(pathtargetraname));
+                        string listtypeopen = (File.ReadAllText(pathtypeopen));
+                        var read = JsonConvert.DeserializeObject<List<Construct>>(listtargetraname);
+                        var prowType = JsonConvert.DeserializeObject<List<Typelist>>(listtypeopen);
 
-                        foreach (var read in listRead)
+                        var list = new List<string>();
+                        var listtype = new List<string>();
+
+                        foreach (var jsontype in prowType)
                         {
-                            Console.WriteLine($"у вас имеються ячейки: {read.Id} ");
+                            listtype.Add(jsontype.TypeSpisok);
+                            Console.WriteLine($"ваш type список {jsontype.TypeSpisok}");
+                        }
 
-                            Console.ReadKey();
-                            Console.Write("какую ячейку выбирите? ");
-                            var idText = Console.ReadLine();
+                        foreach (var jsontext in read)
+                        {
+                            list.Add(jsontext.Platform);
+                            Console.WriteLine(
+                                $"id: {jsontext.Id} platform: {jsontext.Platform} type: {jsontext.Type} target: {jsontext.Target} ");
+                        }
 
-                            if (read.Id == idText)
+                        Console.Write("какой platfrom вы хотите изменить: ");
+                        var platForm = Console.ReadLine();
+                        if (list.Contains(platForm))
+                        {
+                            Console.WriteLine($"вы у строки {platForm}");
+                            Console.Write($"на какую строку вы хотите заменить {platForm}: ");
+                            var renameinputplatfrom = Console.ReadLine();
+                            if (!list.Contains(renameinputplatfrom))
                             {
-                                while (true)
+                                if (platForm.Length == 0)
                                 {
-                                    Console.WriteLine($"вы у поля {read.Id}");
-                                    Console.Write($"вы точно хотите заменить platform {read.Id} ");
-                                    Console.ReadLine();
-                                    if (input == "да")
+                                    Console.WriteLine("нельзя перезаписать на пустую строку");
+                                }
+
+                                else
+                                {
+                                    string pathrename = @"C:\Users\edgar\Desktop\students.json";
+                                    using (StreamWriter streamWriter = new StreamWriter(pathrename, false))
                                     {
-                                        Console.WriteLine("good");
+                                        int index = list.IndexOf(platForm);
+                                        read[index].Platform = renameinputplatfrom;
+                                        var json = JsonSerializer.Serialize(read); 
+                                        streamWriter.WriteLine(json);
+                                        Console.WriteLine("файил записан");
                                     }
                                 }
                             }
+
+                            else
+                            {
+                                Console.WriteLine("такое поле занято");
+                                break;
+                            }
                         }
+                        else
+                        {
+                            Console.WriteLine("такого поля нет");
+                            break;
+                        }
+
+                        foreach (var plattype in read)
+                        {
+                            listtype.Add(plattype.Type);
+                            Console.WriteLine(
+                                $"id: {plattype.Id} platform: {plattype.Platform} type: {plattype.Type} target: {plattype.Target} ");
+                        }
+                        
+                        Console.Write("какой type вы хотите изменить: ");
+                        var type = Console.ReadLine();
+                        if (listtype.Contains(type))
+                        {
+                            Console.WriteLine($"вы у строки {type}");
+                            Console.Write($"на какую строку вы хотите заменить {type}: ");
+                            var renameinputtype = Console.ReadLine();
+
+                            if (listtype.Contains(renameinputtype))
+                            {
+                                string pathrename = @"C:\Users\edgar\Desktop\students.json";
+                                using (StreamWriter streamWriter = new StreamWriter(pathrename, false))
+                                {
+                                    int index = listtype.IndexOf(type);
+                                    read[index].Type = renameinputtype;
+                                    var json = JsonSerializer.Serialize(read);
+                                    streamWriter.WriteLine(json);
+                                    Console.WriteLine("файил записан");
+                                }
+                            }
+
+                            else
+                            {
+                                Console.WriteLine("такого поля нет");
+                            }
+                        }
+
+                        else
+                        {
+                            Console.WriteLine("такого нет");
+                            break;
+                        }
+
+
+                        Console.ReadKey();
                     }
                     catch (Exception e)
                     {
-                        Console.WriteLine("файл пуст");
+                        Console.WriteLine("ваш json кривой" + e);
                     }
 
+                    Console.ReadKey();
                     break;
                 case "2":
                     try
@@ -67,97 +148,115 @@ public class Platform
                         bool istype = false;
                         bool isTarget = false;
 
+                        var list = new List<string>();
+
                         foreach (var jsonlist in prowPlatform)
                         {
-                            Console.WriteLine($"у вас есть ячейки {jsonlist.Id}");
+                            list.Add(jsonlist.Id);
+                            list.Add(jsonlist.Platform);
+                            list.Add(jsonlist.Type);
+                            list.Add(jsonlist.Target);
+
+                            Console.WriteLine(
+                                $"id: {jsonlist.Id} platform: {jsonlist.Platform} type: {jsonlist.Type} target: {jsonlist.Target} ");
                         }
 
-                        foreach (var jsonPlatform in prowPlatform)
+                        Console.Write("выбирите свободную ячейку: ");
+                        var id = Console.ReadLine();
+                        if (!list.Contains(id))
                         {
-                            Console.Write("выбирите свободную ячейку: ");
-                            var id = Console.ReadLine();
-                            if (jsonPlatform.Id != id)
+                            Console.Write("выбирите PLatform: ");
+                            var platforminput = Console.ReadLine();
+                            if (!list.Contains(platforminput))
                             {
-                                Console.Write("выбирите PLatform: ");
-                                var platforminput = Console.ReadLine();
-                                foreach (var listtype in prowType)
-                                {
-                                    Console.WriteLine($"в базе данных есть {listtype.TypeSpisok}");
-                                }
-
                                 Console.Write("выбирите type: ");
                                 var typeinput = Console.ReadLine();
-                                foreach (var listtarget in prowTarget)
+                                if (!list.Contains(typeinput))
                                 {
-                                    Console.WriteLine($"в базе данных есть {listtarget.TargetSpisok}");
-                                }
-
-                                Console.Write("выбирите Target: ");
-                                var targetinput = Console.ReadLine();
-
-                                if (typeinput.Length == 0 || targetinput.Length == 0 || platforminput.Length == 0 ||
-                                    id.Length == 0)
-                                {
-                                    Console.WriteLine(
-                                        "ваш type или target или platfom пуст или id \nпопробуйте снова нажми enter");
-                                    Console.ReadKey();
-                                    Console.Clear();
-                                }
-
-                                else
-                                {
-                                    foreach (var jsontarget in prowTarget)
+                                    Console.Write("выбирите Target: ");
+                                    var targetinput = Console.ReadLine();
+                                    if (!list.Contains(targetinput))
                                     {
-                                        if (jsontarget.TargetSpisok == targetinput)
+                                        if (typeinput.Length == 0 || targetinput.Length == 0 ||
+                                            platforminput.Length == 0 ||
+                                            id.Length == 0)
                                         {
-                                            isTarget = true;
+                                            Console.WriteLine(
+                                                "ваш type или target или platfom пуст или id \nпопробуйте снова нажми enter");
+                                            Console.ReadKey();
+                                            Console.Clear();
                                         }
 
                                         else
                                         {
-                                            Console.WriteLine(
-                                                "отказзано мы не нашли такое в нашей базе данных target");
+                                            foreach (var jsontarget in prowTarget)
+                                            {
+                                                if (jsontarget.TargetSpisok == targetinput)
+                                                {
+                                                    isTarget = true;
+                                                }
+
+                                                else
+                                                {
+                                                    Console.WriteLine(
+                                                        "отказзано мы не нашли такое в нашей базе данных target");
+                                                }
+                                            }
+
+                                            foreach (var jsontype in prowType)
+                                            {
+                                                if (jsontype.TypeSpisok == typeinput)
+                                                {
+                                                    istype = true;
+                                                }
+
+                                                else
+                                                {
+                                                    Console.WriteLine(
+                                                        "отказзано мы не нашли такое в нашей базе данных type");
+                                                }
+                                            }
+
+                                            if (istype && isTarget)
+                                            {
+                                                using (StreamWriter streamWriter =
+                                                       new StreamWriter(pathplatformopen, false))
+                                                {
+                                                    Construct construct = new Construct(id, platforminput, targetinput,
+                                                        typeinput);
+                                                    prowPlatform.Add(construct);
+                                                    var json = JsonSerializer.Serialize(prowPlatform);
+                                                    streamWriter.WriteLine(json);
+                                                    Console.WriteLine("файл сохранен");
+                                                }
+                                            }
+
+                                            else
+                                            {
+                                                Console.WriteLine("увы вы дурак");
+                                            }
                                         }
                                     }
-
-                                    foreach (var jsontype in prowType)
-                                    {
-                                        if (jsontype.TypeSpisok == typeinput)
-                                        {
-                                            istype = true;
-                                        }
-
-                                        else
-                                        {
-                                            Console.WriteLine(
-                                                "отказзано мы не нашли такое в нашей базе данных type");
-                                        }
-                                    }
-
-                                    if (istype && isTarget)
-                                    {
-                                        using (StreamWriter streamWriter = new StreamWriter(pathplatformopen, false))
-                                        {
-                                            Construct construct = new Construct(id, platforminput, targetinput,
-                                                typeinput);
-                                            prowPlatform.Add(construct);
-                                            var json = JsonSerializer.Serialize(prowPlatform);
-                                            streamWriter.WriteLine(json);
-                                            Console.WriteLine("файл сохранен");
-                                        }
-                                    }
-
                                     else
                                     {
-                                        Console.WriteLine("увы вы дурак");
+                                        Console.WriteLine($"{targetinput} занят");
                                     }
+                                }
+                                else
+                                {
+                                    Console.WriteLine($"{typeinput} занят");
                                 }
                             }
 
                             else
                             {
-                                Console.WriteLine($"{id} занят");
+                                Console.WriteLine($"{platforminput} занят");
                             }
+                        }
+
+                        else
+                        {
+                            Console.WriteLine($"{id} занят");
                         }
                     }
                     catch
