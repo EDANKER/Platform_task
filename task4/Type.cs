@@ -19,12 +19,65 @@ public class Type
                 case "1":
                     try
                     {
+                        string pathtargetraname = @"C:\Users\edgar\Desktop\objects.json";
+                        string listtargetraname = (File.ReadAllText(pathtargetraname));
+                        var read = JsonConvert.DeserializeObject<List<Typelist>>(listtargetraname);
+
+                        var list = new List<string>();
+
+                        foreach (var jsontext in read)
+                        {
+                            list.Add(jsontext.TypeSpisok);
+                            Console.WriteLine($"у вас есть таргеты {jsontext.TypeSpisok}");
+                        }
+
+
+                        Console.Write("какой target вы хотите изменить: ");
+                        var renametype = Console.ReadLine();
+                        if (list.Contains(renametype))
+                        {
+                            Console.WriteLine($"вы у строки {renametype}");
+                            Console.Write($"на какую строку вы хотите заменить {renametype}: ");
+                            var renameinput = Console.ReadLine();
+                            if (!list.Contains(renameinput))
+                            {
+                                if (renametype.Length == 0)
+                                {
+                                    Console.WriteLine("нельзя перезаписать на пустую строку");
+                                }
+
+                                else
+                                {
+                                    string pathrename = @"C:\Users\edgar\Desktop\Data.json";
+                                    using (StreamWriter streamWriter = new StreamWriter(pathrename, false))
+                                    {
+                                        int index = list.IndexOf(renametype);
+                                        read[index].TypeSpisok = renameinput;
+                                        var json = JsonSerializer.Serialize(read);
+                                        streamWriter.WriteLine(json);
+                                        Console.WriteLine("файил записан");
+                                    }
+                                }
+                            }
+
+                            else
+                            {
+                                Console.WriteLine("такое поле занято");
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("такого поля нет");
+                        }
+
+                        Console.ReadKey();
                     }
                     catch (Exception e)
                     {
-                        Console.WriteLine("ваш json неверный");
+                        Console.WriteLine("ваш json кривой");
                     }
 
+                    Console.ReadKey();
                     break;
                 case "2":
                     try
