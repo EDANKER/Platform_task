@@ -38,6 +38,9 @@ public class Platform
                         foreach (var jsontext in read)
                         {
                             list.Add(jsontext.Platform);
+                            list.Add(jsontext.Id);
+                            list.Add(jsontext.Type);
+                            list.Add(jsontext.Target);
                             Console.WriteLine(
                                 $"id: {jsontext.Id} platform: {jsontext.Platform} type: {jsontext.Type} target: {jsontext.Target} ");
                         }
@@ -48,96 +51,131 @@ public class Platform
                         switch (inputPlatform)
                         {
                             case "1":
+                                Console.Write("какой id вы хотите удалить: ");
+                                var deletedid = Console.ReadLine();
+                                Console.Write("какой platfrom вы хотите удалить: ");
+                                var deletedForm = Console.ReadLine();
+                                Console.Write("какой type вы хотите удалить: ");
+                                var deletedtype = Console.ReadLine();
+                                Console.Write("какой target вы хотите удалить: ");
+                                var deletedtarget = Console.ReadLine();
                                 
+                                if (list.Contains(deletedForm))
+                                {
+                                    {
+                                        string pathrename = @"C:\Users\edgar\Desktop\students.json";
+                                        using (StreamWriter streamWriter = new StreamWriter(pathrename, false))
+                                        {
+                                            int indexplatform = list.IndexOf(deletedForm);
+                                            read.RemoveAt(indexplatform);
+                                            int indextype = list.IndexOf(deletedtype);
+                                            read.RemoveAt(indextype);
+                                            int indextarget = list.IndexOf(deletedtarget);
+                                            read.RemoveAt(indextarget);
+                                            int id = list.IndexOf(deletedid);
+                                            read.RemoveAt(id);
+                                            var json = JsonSerializer.Serialize(read);
+                                            streamWriter.WriteLine(json);
+                                            Console.WriteLine("файил записан");
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    Console.WriteLine("такого поля нет");
+                                    break;
+                                }
+
                                 break;
                             case "2":
                                 Console.Write("какой platfrom вы хотите изменить: ");
-                        var platForm = Console.ReadLine();
-                        if (list.Contains(platForm))
-                        {
-                            Console.WriteLine($"вы у строки {platForm}");
-                            Console.Write($"на какую строку вы хотите заменить {platForm}: ");
-                            var renameinputplatfrom = Console.ReadLine();
-                            if (!list.Contains(renameinputplatfrom))
-                            {
-                                if (platForm.Length == 0)
+                                var platForm = Console.ReadLine();
+                                if (list.Contains(platForm))
                                 {
-                                    Console.WriteLine("нельзя перезаписать на пустую строку");
+                                    Console.WriteLine($"вы у строки {platForm}");
+                                    Console.Write($"на какую строку вы хотите заменить {platForm}: ");
+                                    var renameinputplatfrom = Console.ReadLine();
+                                    if (!list.Contains(renameinputplatfrom))
+                                    {
+                                        if (platForm.Length == 0)
+                                        {
+                                            Console.WriteLine("нельзя перезаписать на пустую строку");
+                                        }
+
+                                        else
+                                        {
+                                            string pathrename = @"C:\Users\edgar\Desktop\students.json";
+                                            using (StreamWriter streamWriter = new StreamWriter(pathrename, false))
+                                            {
+                                                int index = list.IndexOf(platForm);
+                                                read[index].Platform = renameinputplatfrom;
+                                                var json = JsonSerializer.Serialize(read);
+                                                streamWriter.WriteLine(json);
+                                                Console.WriteLine("файил записан");
+                                            }
+                                        }
+                                    }
+
+                                    else
+                                    {
+                                        Console.WriteLine("такое поле занято");
+                                        break;
+                                    }
+                                }
+                                else
+                                {
+                                    Console.WriteLine("такого поля нет");
+                                    break;
+                                }
+
+                                foreach (var plattype in read)
+                                {
+                                    listtype.Add(plattype.Type);
+                                    Console.WriteLine(
+                                        $"id: {plattype.Id} platform: {plattype.Platform} type: {plattype.Type} target: {plattype.Target} ");
+                                }
+
+                                Console.Write("какой type вы хотите изменить: ");
+                                var type = Console.ReadLine();
+                                if (listtype.Contains(type))
+                                {
+                                    Console.WriteLine($"вы у строки {type}");
+                                    Console.Write($"на какую строку вы хотите заменить {type}: ");
+                                    var renameinputtype = Console.ReadLine();
+
+                                    if (listtype.Contains(renameinputtype))
+                                    {
+                                        string pathrename = @"C:\Users\edgar\Desktop\students.json";
+                                        using (StreamWriter streamWriter = new StreamWriter(pathrename, false))
+                                        {
+                                            int index = listtype.IndexOf(type);
+                                            read[index].Type = renameinputtype;
+                                            var json = JsonSerializer.Serialize(read);
+                                            streamWriter.WriteLine(json);
+                                            Console.WriteLine("файил записан");
+                                        }
+                                    }
+
+                                    else
+                                    {
+                                        Console.WriteLine("такого поля нет");
+                                    }
                                 }
 
                                 else
                                 {
-                                    string pathrename = @"C:\Users\edgar\Desktop\students.json";
-                                    using (StreamWriter streamWriter = new StreamWriter(pathrename, false))
-                                    {
-                                        int index = list.IndexOf(platForm);
-                                        read[index].Platform = renameinputplatfrom;
-                                        var json = JsonSerializer.Serialize(read); 
-                                        streamWriter.WriteLine(json);
-                                        Console.WriteLine("файил записан");
-                                    }
+                                    Console.WriteLine("такого нет");
+                                    break;
                                 }
-                            }
 
-                            else
-                            {
-                                Console.WriteLine("такое поле занято");
-                                break;
-                            }
-                        }
-                        else
-                        {
-                            Console.WriteLine("такого поля нет");
-                            break;
-                        }
-
-                        foreach (var plattype in read)
-                        {
-                            listtype.Add(plattype.Type);
-                            Console.WriteLine(
-                                $"id: {plattype.Id} platform: {plattype.Platform} type: {plattype.Type} target: {plattype.Target} ");
-                        }
-                        
-                        Console.Write("какой type вы хотите изменить: ");
-                        var type = Console.ReadLine();
-                        if (listtype.Contains(type))
-                        {
-                            Console.WriteLine($"вы у строки {type}");
-                            Console.Write($"на какую строку вы хотите заменить {type}: ");
-                            var renameinputtype = Console.ReadLine();
-
-                            if (listtype.Contains(renameinputtype))
-                            {
-                                string pathrename = @"C:\Users\edgar\Desktop\students.json";
-                                using (StreamWriter streamWriter = new StreamWriter(pathrename, false))
-                                {
-                                    int index = listtype.IndexOf(type);
-                                    read[index].Type = renameinputtype;
-                                    var json = JsonSerializer.Serialize(read);
-                                    streamWriter.WriteLine(json);
-                                    Console.WriteLine("файил записан");
-                                }
-                            }
-
-                            else
-                            {
-                                Console.WriteLine("такого поля нет");
-                            }
-                        }
-
-                        else
-                        {
-                            Console.WriteLine("такого нет");
-                            break;
-                        }
                                 break;
                         }
-                        
+
                         Console.ReadKey();
                     }
                     catch (Exception e)
                     {
-                        Console.WriteLine("ваш json кривой" + e);
+                        Console.WriteLine("ваш json кривой");
                     }
 
                     Console.ReadKey();
