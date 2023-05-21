@@ -30,43 +30,73 @@ public class Target
                             list.Add(jsontext.TargetSpisok);
                             Console.WriteLine($"у вас есть таргеты {jsontext.TargetSpisok}");
                         }
-                        
-                        Console.Write("какой target вы хотите изменить: ");
-                        var renametarget = Console.ReadLine();
-                        if (list.Contains(renametarget))
-                        {
-                            Console.WriteLine($"вы у строки {renametarget}");
-                            Console.Write($"на какую строку вы хотите заменить {renametarget}: ");
-                            var renameinput = Console.ReadLine();
-                            if (!list.Contains(renameinput))
-                            {
-                                if (renametarget.Length == 0)
-                                {
-                                    Console.WriteLine("нельзя перезаписать на пустую строку");
-                                }
 
-                                else
+                        Console.WriteLine("\nчто вы хотите\n удалить 1 изменить 2");
+                        var inputtarget = Console.ReadLine();
+                        switch (inputtarget)
+                        {
+                            case "1":
+                                Console.Write("какой target вы хотите изменить: ");
+                                var deledettarget = Console.ReadLine();
+                                if (list.Contains(deledettarget))
                                 {
                                     string pathrename = @"C:\Users\edgar\Desktop\Data.json";
                                     using (StreamWriter streamWriter = new StreamWriter(pathrename, false))
                                     {
-                                        int index = list.IndexOf(renametarget);
-                                        read[index].TargetSpisok = renameinput;
+                                        int index = list.IndexOf(deledettarget);
+                                        read.RemoveAt(index);
                                         var json = JsonSerializer.Serialize(read);
                                         streamWriter.WriteLine(json);
                                         Console.WriteLine("файил записан");
                                     }
+                                    
                                 }
-                            }
+                                else
+                                {
+                                    Console.WriteLine("такого поля нет");
+                                }
 
-                            else
-                            {
-                                Console.WriteLine("такое поле занято");
-                            }
-                        }
-                        else
-                        {
-                            Console.WriteLine("такого поля нет");
+                                break;
+                            case "2":
+                                Console.Write("какой target вы хотите изменить: ");
+                                var renametarget = Console.ReadLine();
+                                if (list.Contains(renametarget))
+                                {
+                                    Console.WriteLine($"вы у строки {renametarget}");
+                                    Console.Write($"на какую строку вы хотите заменить {renametarget}: ");
+                                    var renameinput = Console.ReadLine();
+                                    if (!list.Contains(renameinput))
+                                    {
+                                        if (renametarget.Length == 0)
+                                        {
+                                            Console.WriteLine("нельзя перезаписать на пустую строку");
+                                        }
+
+                                        else
+                                        {
+                                            string pathrename = @"C:\Users\edgar\Desktop\Data.json";
+                                            using (StreamWriter streamWriter = new StreamWriter(pathrename, false))
+                                            {
+                                                int index = list.IndexOf(renametarget);
+                                                read[index].TargetSpisok = renameinput;
+                                                var json = JsonSerializer.Serialize(read);
+                                                streamWriter.WriteLine(json);
+                                                Console.WriteLine("файил записан");
+                                            }
+                                        }
+                                    }
+
+                                    else
+                                    {
+                                        Console.WriteLine("такое поле занято");
+                                    }
+                                }
+                                else
+                                {
+                                    Console.WriteLine("такого поля нет");
+                                }
+
+                                break;
                         }
 
                         Console.ReadKey();

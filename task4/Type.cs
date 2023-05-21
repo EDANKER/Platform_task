@@ -31,43 +31,72 @@ public class Type
                             Console.WriteLine($"у вас есть таргеты {jsontext.TypeSpisok}");
                         }
 
+                        Console.WriteLine("\nчто вы хотите\n удалить 1 изменить 2");
+                        var inputtype = Console.ReadLine();
 
-                        Console.Write("какой target вы хотите изменить: ");
-                        var renametype = Console.ReadLine();
-                        if (list.Contains(renametype))
+                        switch (inputtype)
                         {
-                            Console.WriteLine($"вы у строки {renametype}");
-                            Console.Write($"на какую строку вы хотите заменить {renametype}: ");
-                            var renameinput = Console.ReadLine();
-                            if (!list.Contains(renameinput))
-                            {
-                                if (renametype.Length == 0)
-                                {
-                                    Console.WriteLine("нельзя перезаписать на пустую строку");
-                                }
-
-                                else
+                            case "1":
+                                Console.Write("какой target вы хотите изменить: ");
+                                var deletedtype = Console.ReadLine();
+                                if (list.Contains(deletedtype))
                                 {
                                     string pathrename = @"C:\Users\edgar\Desktop\objects.json";
                                     using (StreamWriter streamWriter = new StreamWriter(pathrename, false))
                                     {
-                                        int index = list.IndexOf(renametype);
-                                        read[index].TypeSpisok = renameinput;
+                                        int index = list.IndexOf(deletedtype);
+                                        read.RemoveAt(index);
                                         var json = JsonSerializer.Serialize(read);
                                         streamWriter.WriteLine(json);
                                         Console.WriteLine("файил записан");
                                     }
                                 }
-                            }
+                                else
+                                {
+                                    Console.WriteLine("такого поля нет");
+                                }
 
-                            else
-                            {
-                                Console.WriteLine("такое поле занято");
-                            }
-                        }
-                        else
-                        {
-                            Console.WriteLine("такого поля нет");
+                                break;
+                            case "2":
+                                Console.Write("какой target вы хотите изменить: ");
+                                var renametype = Console.ReadLine();
+                                if (list.Contains(renametype))
+                                {
+                                    Console.WriteLine($"вы у строки {renametype}");
+                                    Console.Write($"на какую строку вы хотите заменить {renametype}: ");
+                                    var renameinput = Console.ReadLine();
+                                    if (!list.Contains(renameinput))
+                                    {
+                                        if (renametype.Length == 0)
+                                        {
+                                            Console.WriteLine("нельзя перезаписать на пустую строку");
+                                        }
+
+                                        else
+                                        {
+                                            string pathrename = @"C:\Users\edgar\Desktop\objects.json";
+                                            using (StreamWriter streamWriter = new StreamWriter(pathrename, false))
+                                            {
+                                                int index = list.IndexOf(renametype);
+                                                read[index].TypeSpisok = renameinput;
+                                                var json = JsonSerializer.Serialize(read);
+                                                streamWriter.WriteLine(json);
+                                                Console.WriteLine("файил записан");
+                                            }
+                                        }
+                                    }
+
+                                    else
+                                    {
+                                        Console.WriteLine("такое поле занято");
+                                    }
+                                }
+                                else
+                                {
+                                    Console.WriteLine("такого поля нет");
+                                }
+
+                                break;
                         }
 
                         Console.ReadKey();

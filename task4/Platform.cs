@@ -42,7 +42,16 @@ public class Platform
                                 $"id: {jsontext.Id} platform: {jsontext.Platform} type: {jsontext.Type} target: {jsontext.Target} ");
                         }
 
-                        Console.Write("какой platfrom вы хотите изменить: ");
+                        Console.WriteLine("\nчто вы хотите\n удалить 1 изменить 2");
+                        var inputPlatform = Console.ReadLine();
+
+                        switch (inputPlatform)
+                        {
+                            case "1":
+                                
+                                break;
+                            case "2":
+                                Console.Write("какой platfrom вы хотите изменить: ");
                         var platForm = Console.ReadLine();
                         if (list.Contains(platForm))
                         {
@@ -121,8 +130,9 @@ public class Platform
                             Console.WriteLine("такого нет");
                             break;
                         }
-
-
+                                break;
+                        }
+                        
                         Console.ReadKey();
                     }
                     catch (Exception e)
