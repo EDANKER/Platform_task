@@ -146,12 +146,12 @@ public class Type
                 case "3":
                     string pathtargeopen = @"C:\Users\edgar\Desktop\objects.json";
                     string listtargetopen = (File.ReadAllText(pathtargeopen));
-                    var readrarget = JsonConvert.DeserializeObject<List<Targetlist>>(listtargetopen);
+                    var readrarget = JsonConvert.DeserializeObject<List<Typelist>>(listtargetopen);
                     try
                     {
                         foreach (var jsontargetlist in readrarget)
                         {
-                            Console.WriteLine(jsontargetlist.TargetSpisok);
+                            Console.WriteLine(jsontargetlist.TypeSpisok);
                         }
 
                         Console.ReadKey();
