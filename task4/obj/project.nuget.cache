@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "V8h28uZW5mBp+eH89wL3LdIi2cw80m5WEG5E1myTF87qMOoX1MBIW6bkdymNKzf0HNEvbfz+PSZYbv8jfzrCxQ==",
+  "dgSpecHash": "JxQ4emRBpauL2zMbfWMGWk2/PPsHv4BjnvuSIdrXGd9km6rWh1MHnSiVUiJD0JlxUCHxNQXPJR6Wx1znYDgpMQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\edgar\\Desktop\\С#\\task4\\task4.csproj",
+  "projectFilePath": "C:\\Users\\edgar\\Platform_task\\task4\\task4.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\edgar\\.nuget\\packages\\api-client-shared\\4.0.0\\api-client-shared.4.0.0.nupkg.sha512",
     "C:\\Users\\edgar\\.nuget\\packages\\common.logging\\3.3.1\\common.logging.3.3.1.nupkg.sha512",

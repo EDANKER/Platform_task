@@ -4,10 +4,10 @@ public class Construct
 {
     public string? Id { get; set; }
     public string? Platform { get; set; }
-    public string? Target { get; set; }
-    public string? Type { get; set; }
+    public List<Targetlist>? Target { get; set; }
+    public Typelist? Type { get; set; }
 
-    public Construct(string? id, string? platform, string? target, string? type)
+    public Construct(string? id, string? platform, List<Targetlist>? target, Typelist? type)
     {
         Id = id;
         Platform = platform;

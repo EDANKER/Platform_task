@@ -284,11 +284,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\edgar\\Desktop\\С#\\task4\\task4.csproj",
+      "projectUniqueName": "C:\\Users\\edgar\\Platform_task\\task4\\task4.csproj",
       "projectName": "task4",
-      "projectPath": "C:\\Users\\edgar\\Desktop\\С#\\task4\\task4.csproj",
+      "projectPath": "C:\\Users\\edgar\\Platform_task\\task4\\task4.csproj",
       "packagesPath": "C:\\Users\\edgar\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\edgar\\Desktop\\С#\\task4\\obj\\",
+      "outputPath": "C:\\Users\\edgar\\Platform_task\\task4\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
