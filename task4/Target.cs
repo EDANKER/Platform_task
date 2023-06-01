@@ -49,7 +49,6 @@ public class Target
                                         streamWriter.WriteLine(json);
                                         Console.WriteLine("файил записан");
                                     }
-                                    
                                 }
                                 else
                                 {
@@ -64,7 +63,7 @@ public class Target
                                 {
                                     Console.WriteLine($"вы у строки {renametarget}");
                                     Console.Write($"на какую строку вы хотите заменить {renametarget}: ");
-                                    var renameinput = Console.ReadLine();
+                                    string? renameinput = Console.ReadLine();
                                     if (!list.Contains(renameinput))
                                     {
                                         if (renametarget.Length == 0)
@@ -114,24 +113,42 @@ public class Target
                         string pathtargetlist = @"C:\Users\edgar\Desktop\Data.json";
                         var readlist = (File.ReadAllText(pathtargetlist));
                         var read = JsonConvert.DeserializeObject<List<Targetlist>>(readlist);
+
+                        var listcontein = new List<string>();
+                        foreach (var conteinJson in read)
+                        {
+                            listcontein.Add(conteinJson.TargetSpisok);
+                        }
+                        
                         Console.Write("какой таргет хотите добавить?: ");
                         var listtarget = Console.ReadLine();
-
-                        if (listtarget.Length == 0)
+                        if (!listcontein.Contains(listtarget))
                         {
-                            Console.WriteLine("вы не чего не написали");
+
+
+
+                            if (listtarget.Length == 0)
+                            {
+                                Console.WriteLine("вы не чего не написали");
+                            }
+
+                            else
+                            {
+                                using (StreamWriter streamReader = new StreamWriter(pathtargetlist, false))
+                                {
+                                    Targetlist targetlist = new Targetlist(listtarget);
+                                    read?.Add(targetlist);
+                                    var jsontarget = JsonSerializer.Serialize(read);
+                                    streamReader.WriteLine(jsontarget);
+                                    Console.WriteLine("файл записан");
+                                }
+                            }
                         }
 
                         else
                         {
-                            using (StreamWriter streamReader = new StreamWriter(pathtargetlist, false))
-                            {
-                                Targetlist targetlist = new Targetlist(listtarget);
-                                read?.Add(targetlist);
-                                var jsontarget = JsonSerializer.Serialize(read);
-                                streamReader.WriteLine(jsontarget);
-                                Console.WriteLine("файл записан");
-                            }
+                            Console.WriteLine("занято");
+                            Console.ReadKey();
                         }
                     }
 
@@ -149,7 +166,15 @@ public class Target
                     {
                         foreach (var jsontargetlist in readrarget)
                         {
-                            Console.WriteLine(jsontargetlist.TargetSpisok);
+                            if (jsontargetlist.TargetSpisok.Length == 0)
+                            {
+                                Console.WriteLine("нужных данных нет");
+                            }
+
+                            else
+                            {
+                                Console.WriteLine(jsontargetlist.TargetSpisok);
+                            }
                         }
 
                         Console.ReadKey();
