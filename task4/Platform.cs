@@ -173,65 +173,70 @@ public class Platform
                                 {
                                     Console.WriteLine(variableTargetlist.TargetSpisok);
                                 }
+
                                 foreach (var variableTargetnumber in prowTarget)
                                 {
                                     Console.WriteLine(variableTargetnumber.TargetSpisok.Length);
                                 }
+
                                 foreach (var scanTarget in prowTarget)
                                 {
                                     Console.Write("сколько вы хотите добавить target: ");
                                     var targetAddFile = Convert.ToInt32(Console.ReadLine());
                                     if (scanTarget.TargetSpisok.Length >= targetAddFile)
                                     {
+                                        Console.Write($"выбирите Target должно быть {targetAddFile}: ");
+                                        List<Targetlist> targetlist = new List<Targetlist>();
                                         for (int i = 0; i < targetAddFile; i++)
                                         {
-                                            Console.Write($"выбирите Target должно быть {targetAddFile}: ");
-                                            targetAddFile = Console.ReadLine()[i];
-                                            List<Targetlist> targetlist = new List<Targetlist>();
+                                            Console.Write("напишите target: ");
+                                            var inputtarget = Console.ReadLine();
 
-                                            targetlist.Add(new Targetlist(targetAddFile.ToString()));
+                                            var newObj = new Targetlist(inputtarget);
 
-
-                                            foreach (var jsontarget in prowTarget)
+                                            if (targetlist.Contains(newObj))
                                             {
-                                                if (jsontarget.TargetSpisok == targetAddFile.ToString())
-                                                {
-                                                    isTarget = true;
-                                                }
-                                            }
-
-                                            foreach (var jsontype in prowType)
-                                            {
-                                                if (jsontype.TypeSpisok == typeinput)
-                                                {
-                                                    istype = true;
-                                                }
-                                            }
-
-                                            if (istype && isTarget)
-                                            {
-                                                using (StreamWriter streamWriter =
-                                                       new StreamWriter(pathplatformopen, false))
-                                                {
-                                                    Construct construct =
-                                                        new Construct(id, platforminput, typelist, targetlist);
-
-                                                    prowPlatform.Add(construct);
-
-                                                    var json = JsonSerializer.Serialize(prowPlatform);
-
-                                                    streamWriter.WriteLine(json);
-                                                    Console.WriteLine("файл сохранен");
-                                                }
+                                                Console.WriteLine("уже занят");
                                             }
 
                                             else
                                             {
-                                                Console.WriteLine("такого нет");
+                                                targetlist.Add(newObj);
+                                                isTarget = true;
                                             }
                                         }
-                                    }
 
+                                        foreach (var jsontype in prowType)
+                                        {
+                                            if (jsontype.TypeSpisok == typeinput)
+                                            {
+                                                istype = true;
+                                            }
+                                        }
+
+
+                                        if (istype && isTarget)
+                                        {
+                                            using (StreamWriter streamWriter =
+                                                   new StreamWriter(pathplatformopen, false))
+                                            {
+                                                Construct construct =
+                                                    new Construct(id, platforminput, typelist, targetlist);
+
+                                                prowPlatform.Add(construct);
+
+                                                var json = JsonSerializer.Serialize(prowPlatform);
+
+                                                streamWriter.WriteLine(json);
+                                                Console.WriteLine("файл сохранен");
+                                            }
+                                        }
+
+                                        else
+                                        {
+                                            Console.WriteLine("такого нет");
+                                        }
+                                    }
                                     else
                                     {
                                         Console.WriteLine("столько нет");
