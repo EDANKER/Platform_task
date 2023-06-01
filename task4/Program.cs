@@ -20,7 +20,7 @@ namespace Microsoft
             {
                 string? input;
                 Console.Write(
-                    "\n1 прочетать/редактировать Platform:  \n2 прочетать/редактировать Type:  \n3 прочетать/редактировать Target:  \nвыберите режим: ");
+                    "\n1 прочитать/редактировать Platform:  \n2 прочитать/редактировать Type:  \n3 прочитать/редактировать Target:  \n4 выключить программу \nвыберите режим: ");
                 input = Console.ReadLine();
 
                 switch (input)
@@ -40,6 +40,9 @@ namespace Microsoft
                         Console.Clear();
                         var Target = new Target();
                         Console.WriteLine(Target.Targertext());
+                        break;
+                    case "4":
+                        Environment.Exit(0);
                         break;
                     default:
                         Console.WriteLine("неверный ответ");
