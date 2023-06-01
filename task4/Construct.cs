@@ -24,6 +24,19 @@ public class Targetlist
     {
         TargetSpisok = targetSpisok;
     }
+
+    public override bool Equals(object? obj)
+    {
+        if (obj == null)
+            return false;
+
+        if (obj == this)
+            return true;
+
+        var newObj = (Targetlist)obj;
+        
+        return TargetSpisok == newObj.TargetSpisok;
+    }
 }
 
 public class Typelist
