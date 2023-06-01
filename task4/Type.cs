@@ -19,9 +19,9 @@ public class Type
                 case "1":
                     try
                     {
-                        string pathtargetraname = @"C:\Users\edgar\Desktop\objects.json";
-                        string listtargetraname = (File.ReadAllText(pathtargetraname));
-                        var read = JsonConvert.DeserializeObject<List<Typelist>>(listtargetraname);
+                        string pathtype = @"C:\Users\edgar\Desktop\objects.json";
+                        string listtypename = (File.ReadAllText(pathtype));
+                        var read = JsonConvert.DeserializeObject<List<Typelist>>(listtypename);
 
                         var list = new List<string>();
 
@@ -37,7 +37,7 @@ public class Type
                         switch (inputtype)
                         {
                             case "1":
-                                Console.Write("какой target вы хотите изменить: ");
+                                Console.Write("какой target вы хотите удалить: ");
                                 var deletedtype = Console.ReadLine();
                                 if (list.Contains(deletedtype))
                                 {
@@ -115,24 +115,42 @@ public class Type
                         var typeread = (File.ReadAllText(path));
                         var read = JsonConvert.DeserializeObject<List<Typelist>>(typeread);
 
+                        var typeList = new List<string>();
+                        
+                        foreach (var typeJson in read)
+                        {
+                            typeList.Add(typeJson.TypeSpisok);   
+                        }
+                        
                         Console.Write("какой тип хотите добавить?: ");
                         var listtyperead = Console.ReadLine();
 
-                        if (listtyperead.Length == 0)
+                        if (!typeList.Contains(listtyperead))
                         {
-                            Console.WriteLine("вы не чего не написали");
+
+
+                            if (listtyperead.Length == 0)
+                            {
+                                Console.WriteLine("вы не чего не написали");
+                            }
+
+                            else
+                            {
+                                using (StreamWriter streamWriter = new StreamWriter(path, false))
+                                {
+                                    Typelist typelist = new Typelist(listtyperead);
+                                    read?.Add(typelist);
+                                    var json = JsonSerializer.Serialize(read);
+                                    streamWriter.WriteLine(json);
+                                    Console.WriteLine("файл записан");
+                                }
+                            }
                         }
 
                         else
                         {
-                            using (StreamWriter streamWriter = new StreamWriter(path, false))
-                            {
-                                Typelist typelist = new Typelist(listtyperead);
-                                read?.Add(typelist);
-                                var json = JsonSerializer.Serialize(read);
-                                streamWriter.WriteLine(json);
-                                Console.WriteLine("файл записан");
-                            }
+                            Console.WriteLine("занято");
+                            Console.ReadKey();
                         }
                     }
 
@@ -151,14 +169,23 @@ public class Type
                     {
                         foreach (var jsontargetlist in readrarget)
                         {
-                            Console.WriteLine(jsontargetlist.TypeSpisok);
+                            if (jsontargetlist.TypeSpisok.Length == 0)
+                            {
+                                Console.WriteLine("нет нужных данных");
+                            }
+
+                            else
+                            {
+                                Console.WriteLine(jsontargetlist.TypeSpisok);
+                            }
                         }
 
                         Console.ReadKey();
                     }
                     catch (Exception e)
                     {
-                        Console.WriteLine("фаил пуст");
+                        Console.WriteLine("нужного типа нет");
+                        Console.ReadKey();
                     }
 
                     break;
