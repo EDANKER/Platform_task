@@ -201,8 +201,19 @@ public class Platform
 
                                             else
                                             {
-                                                targetlist.Add(newObj);
-                                                isTarget = true;
+                                                foreach (var jsontask in prowTarget)
+                                                {
+                                                    if (jsontask.TargetSpisok == inputtarget)
+                                                    {
+                                                        targetlist.Add(newObj);
+                                                        isTarget = true;
+                                                    }
+
+                                                    else
+                                                    {
+                                                        Console.WriteLine("такого нет");
+                                                    }
+                                                }
                                             }
                                         }
 
@@ -229,6 +240,7 @@ public class Platform
 
                                                 streamWriter.WriteLine(json);
                                                 Console.WriteLine("файл сохранен");
+                                                break;
                                             }
                                         }
 

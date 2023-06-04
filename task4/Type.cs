@@ -28,7 +28,7 @@ public class Type
                         foreach (var jsontext in read)
                         {
                             list.Add(jsontext.TypeSpisok);
-                            Console.WriteLine($"у вас есть таргеты {jsontext.TypeSpisok}");
+                            Console.WriteLine($"у вас есть type {jsontext.TypeSpisok}");
                         }
 
                         Console.WriteLine("\nчто вы хотите\n удалить 1 изменить 2");
@@ -37,7 +37,7 @@ public class Type
                         switch (inputtype)
                         {
                             case "1":
-                                Console.Write("какой target вы хотите удалить: ");
+                                Console.Write("какой type вы хотите удалить: ");
                                 var deletedtype = Console.ReadLine();
                                 if (list.Contains(deletedtype))
                                 {
@@ -58,7 +58,7 @@ public class Type
 
                                 break;
                             case "2":
-                                Console.Write("какой target вы хотите изменить: ");
+                                Console.Write("какой type вы хотите изменить: ");
                                 var renametype = Console.ReadLine();
                                 if (list.Contains(renametype))
                                 {
