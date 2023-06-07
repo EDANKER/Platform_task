@@ -19,16 +19,30 @@ public class Type
                 case "1":
                     try
                     {
+                        string pathPlatform = @"C:\Users\edgar\Desktop\students.json";
                         string pathtype = @"C:\Users\edgar\Desktop\objects.json";
                         string listtypename = (File.ReadAllText(pathtype));
+                        string listPatform = (File.ReadAllText(pathPlatform));
                         var read = JsonConvert.DeserializeObject<List<Typelist>>(listtypename);
+                        var readplatform = JsonConvert.DeserializeObject<List<Construct>>(listPatform);
 
                         var list = new List<string>();
+                        var listPlatform = new List<string>();
+                        var listType = new List<string>();
 
                         foreach (var jsontext in read)
                         {
                             list.Add(jsontext.TypeSpisok);
-                            Console.WriteLine($"у вас есть type {jsontext.TypeSpisok}");
+                        }
+
+                        foreach (var warningType in readplatform)
+                        {
+                            listType.Add(warningType.Type.TypeSpisok);
+                        }
+
+                        foreach (var jsonScan in readplatform)
+                        {
+                            Console.WriteLine($"у вас в Platfomah есть type: {jsonScan.Type.TypeSpisok}");
                         }
 
                         Console.WriteLine("\nчто вы хотите\n удалить 1 изменить 2");
@@ -41,14 +55,22 @@ public class Type
                                 var deletedtype = Console.ReadLine();
                                 if (list.Contains(deletedtype))
                                 {
-                                    string pathrename = @"C:\Users\edgar\Desktop\objects.json";
-                                    using (StreamWriter streamWriter = new StreamWriter(pathrename, false))
+                                    if (!listType.Contains(deletedtype))
                                     {
-                                        int index = list.IndexOf(deletedtype);
-                                        read.RemoveAt(index);
-                                        var json = JsonSerializer.Serialize(read);
-                                        streamWriter.WriteLine(json);
-                                        Console.WriteLine("файил записан");
+                                        string pathrename = @"C:\Users\edgar\Desktop\objects.json";
+                                        using (StreamWriter streamWriter = new StreamWriter(pathrename, false))
+                                        {
+                                            int index = list.IndexOf(deletedtype);
+                                            read.RemoveAt(index);
+                                            var json = JsonSerializer.Serialize(read);
+                                            streamWriter.WriteLine(json);
+                                            Console.WriteLine("файил записан");
+                                        }
+                                    }
+
+                                    else
+                                    {
+                                        Console.WriteLine("ельзя заменить уже используется");
                                     }
                                 }
                                 else
@@ -58,48 +80,75 @@ public class Type
 
                                 break;
                             case "2":
-                                Console.Write("какой type вы хотите изменить: ");
-                                var renametype = Console.ReadLine();
-                                if (list.Contains(renametype))
+                                foreach (var jsonPlaform in readplatform)
                                 {
-                                    Console.WriteLine($"вы у строки {renametype}");
-                                    Console.Write($"на какую строку вы хотите заменить {renametype}: ");
-                                    var renameinput = Console.ReadLine();
-                                    if (!list.Contains(renameinput))
+                                    listPlatform.Add(jsonPlaform.Type.TypeSpisok);
+
+                                    Console.Write("какой type вы хотите изменить: ");
+                                    var renametype = Console.ReadLine();
+                                    if (list.Contains(renametype) || listPlatform.Contains(renametype))
                                     {
-                                        if (renametype.Length == 0)
+                                        Console.WriteLine($"вы у строки {renametype}");
+                                        Console.Write($"на какую строку вы хотите заменить {renametype}: ");
+                                        var renameinput = Console.ReadLine();
+                                        if (!list.Contains(renameinput) && !listPlatform.Contains(renameinput))
                                         {
-                                            Console.WriteLine("нельзя перезаписать на пустую строку");
+                                            if (renameinput.Length == 0)
+                                            {
+                                                Console.WriteLine("нельзя перезаписать на пустую строку");
+                                            }
+
+                                            else
+                                            {
+                                                string pathPlatformrename = @"C:\Users\edgar\Desktop\students.json";
+                                                string pathrename = @"C:\Users\edgar\Desktop\objects.json";
+
+                                                using (StreamWriter streamWriter =
+                                                       new StreamWriter(pathPlatformrename, false))
+                                                {
+                                                    foreach (var jsonRanamePlatform in readplatform)
+                                                    {
+                                                        if (jsonRanamePlatform.Type.TypeSpisok == renametype)
+                                                        {
+                                                            jsonRanamePlatform.Type.TypeSpisok = renameinput;
+                                                        }
+                                                    }
+
+                                                    var jsonPush = JsonSerializer.Serialize(readplatform);
+                                                    streamWriter.WriteLine(jsonPush);
+                                                    Console.WriteLine("файил записан");
+                                                }
+
+                                                using (StreamWriter streamWriter = new StreamWriter(pathrename, false))
+                                                {
+                                                    int index = list.IndexOf(renametype);
+                                                    read[index].TypeSpisok = renameinput;
+                                                    var json = JsonSerializer.Serialize(read);
+                                                    streamWriter.WriteLine(json);
+                                                    Console.WriteLine("файил записан");
+                                                    break;
+                                                }
+                                            }
                                         }
 
                                         else
                                         {
-                                            string pathrename = @"C:\Users\edgar\Desktop\objects.json";
-                                            using (StreamWriter streamWriter = new StreamWriter(pathrename, false))
-                                            {
-                                                int index = list.IndexOf(renametype);
-                                                read[index].TypeSpisok = renameinput;
-                                                var json = JsonSerializer.Serialize(read);
-                                                streamWriter.WriteLine(json);
-                                                Console.WriteLine("файил записан");
-                                            }
+                                            Console.WriteLine("такое поле занято");
+                                            break;
                                         }
                                     }
-
                                     else
                                     {
-                                        Console.WriteLine("такое поле занято");
+                                        Console.WriteLine("такого поля нет");
+                                        break;
                                     }
-                                }
-                                else
-                                {
-                                    Console.WriteLine("такого поля нет");
                                 }
 
                                 break;
-                        }
 
-                        Console.ReadKey();
+
+                                Console.ReadKey();
+                        }
                     }
                     catch (Exception e)
                     {
@@ -116,19 +165,17 @@ public class Type
                         var read = JsonConvert.DeserializeObject<List<Typelist>>(typeread);
 
                         var typeList = new List<string>();
-                        
+
                         foreach (var typeJson in read)
                         {
-                            typeList.Add(typeJson.TypeSpisok);   
+                            typeList.Add(typeJson.TypeSpisok);
                         }
-                        
+
                         Console.Write("какой тип хотите добавить?: ");
                         var listtyperead = Console.ReadLine();
 
                         if (!typeList.Contains(listtyperead))
                         {
-
-
                             if (listtyperead.Length == 0)
                             {
                                 Console.WriteLine("вы не чего не написали");

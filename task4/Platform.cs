@@ -23,7 +23,8 @@ public class Platform
                         string pathtarget = @"C:\Users\edgar\Desktop\Data.json";
                         string pathtype = @"C:\Users\edgar\Desktop\objects.json";
                         string listplatfor = (File.ReadAllText(pathplatfor));
-
+                        string listtargetraname = (File.ReadAllText(pathplatfor));
+                        var read = JsonConvert.DeserializeObject<List<Targetlist>>(listtargetraname);
                         var prowPlatformrename = JsonConvert.DeserializeObject<List<Construct>>(listplatfor);
 
                         var listplatform = new List<string>();
@@ -33,57 +34,59 @@ public class Platform
                             listplatform.Add(jsonPlatformRead.Platform);
                         }
 
-
-                        Console.Write("выбирите Platform который хотите изменить: ");
-                        var inputPlatform = Console.ReadLine();
-                        if (listplatform.Contains(inputPlatform))
+                        foreach (var spisokTargetlist in read)
                         {
-                            Console.Write($"вы у строки {inputPlatform} на какой вы хотите изменить: ");
-                            var renamePlatform = Console.ReadLine();
-                            if (!listplatform.Contains(renamePlatform))
+                            Console.WriteLine($"у вас есть Target: {spisokTargetlist.TargetSpisok}");
+                        }
+
+                        foreach (var readTarget in read)
+                        {
+                            Console.Write("выбирите Platform который хотите изменить: ");
+                            var inputPlatform = Console.ReadLine();
+                            if (listplatform.Contains(inputPlatform))
                             {
-                                if (renamePlatform.Length == 0)
+                                Console.Write($"вы у строки {inputPlatform} какой target вы хотите ему добавить: ");
+                                var renamePlatform = Console.ReadLine();
+                                if (readTarget.TargetSpisok == renamePlatform)
                                 {
-                                    Console.WriteLine("пусто");
+                                    foreach (var variableConstruct in prowPlatformrename)
+                                    {
+                                        foreach (var taskTratget in variableConstruct.Target)
+                                        {
+                                            if (!taskTratget.TargetSpisok.Contains(renamePlatform))
+                                            {
+                                                string pathrename = @"C:\Users\edgar\Desktop\students.json";
+                                                using (StreamWriter streamWriter =
+                                                       new StreamWriter(pathrename, false))
+                                                {
+                                                    int indexTarget = taskTratget.TargetSpisok.IndexOf(renamePlatform);
+                                                    // prowPlatformrename[indexTarget];
+                                                    var jsonPlatfrom = JsonSerializer.Serialize(prowPlatformrename);
+                                                    streamWriter.WriteLine(jsonPlatfrom);
+                                                    Console.WriteLine("файил записан");
+                                                }
+                                            }
+
+                                            else
+                                            {
+                                                Console.WriteLine("он занят");
+                                            }
+                                        }
+                                    }
                                 }
 
                                 else
                                 {
-                                    if (renamePlatform.Length == 0)
-                                    {
-                                        Console.WriteLine("пусто");
-                                    }
-                                    else
-                                    {
-                                        string pathrename = @"C:\Users\edgar\Desktop\students.json";
-                                        using (StreamWriter streamWriter =
-                                               new StreamWriter(pathrename, false))
-                                        {
-                                            int indexPlatform = listplatform.IndexOf(inputPlatform);
-
-                                            prowPlatformrename[indexPlatform].Platform = renamePlatform;
-
-                                            var jsonPlatfrom = JsonSerializer.Serialize(prowPlatformrename);
-                                            streamWriter.WriteLine(jsonPlatfrom);
-                                            Console.WriteLine("файил записан");
-                                        }
-                                    }
+                                    Console.WriteLine("такого нет");
                                 }
                             }
 
-
                             else
                             {
-                                Console.WriteLine("такой Platfrom занят");
+                                Console.WriteLine($"такого {inputPlatform} нет попробуйте еще");
                             }
                         }
-
-                        else
-                        {
-                            Console.WriteLine($"такого {inputPlatform} нет попробуйте еще");
-                        }
                     }
-
                     catch (Exception e)
                     {
                         Console.WriteLine(e);
@@ -130,8 +133,9 @@ public class Platform
                             list.Add(jsonlist.Platform);
                             listtype.Add(jsonlist.Type);
                             listtarget.Add(jsonlist.Target);
-                            
-                            Console.Write($"id: {jsonlist.Id} platform: {jsonlist.Platform} type: {jsonlist.Type.TypeSpisok}");
+
+                            Console.Write(
+                                $"id: {jsonlist.Id} platform: {jsonlist.Platform} type:{jsonlist.Type.TypeSpisok} ");
                             foreach (var targetConsole in jsonlist.Target)
                             {
                                 Console.WriteLine($"target: {targetConsole.TargetSpisok}");
@@ -148,7 +152,7 @@ public class Platform
                             {
                                 foreach (var scanType in prowType)
                                 {
-                                    Console.WriteLine($"{++counttype} { scanType.TypeSpisok}");
+                                    Console.WriteLine($"{++counttype} {scanType.TypeSpisok}");
                                 }
 
                                 Console.Write("выбирите type: ");
@@ -159,6 +163,7 @@ public class Platform
                                 {
                                     Console.WriteLine("чел ты даун");
                                 }
+
                                 var newObjType = prowType[indexType - 1];
 
                                 var typelist = new Typelist(newObjType.TypeSpisok);
@@ -187,14 +192,14 @@ public class Platform
                                                 Console.WriteLine("чел, ты даун");
                                                 break;
                                             }
-                                            
-                                            var newObj = prowTarget[index-1];
+
+                                            var newObj = prowTarget[index - 1];
 
                                             if (targetlist.Contains(newObj))
                                             {
                                                 Console.WriteLine("уже занят");
                                             }
-                                            
+
                                             else
                                             {
                                                 targetlist.Add(newObj);
@@ -261,7 +266,7 @@ public class Platform
                             foreach (var jsonTarget in listfor.Target)
                             {
                                 Console.WriteLine(
-                                    $"target: { jsonTarget.TargetSpisok}");
+                                    $"target: {jsonTarget.TargetSpisok}");
                             }
                         }
                     }
