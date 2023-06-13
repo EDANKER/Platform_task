@@ -27,7 +27,7 @@ namespace Microsoft
                 {
                     case "1":
                         Console.Clear();
-                        var Platform = new Platform();
+                        var Platform = new PlatformBuild();
                         Console.WriteLine(Platform.Platformtext());
                         break;
                     case "2":

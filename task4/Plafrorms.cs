@@ -3,13 +3,13 @@ namespace task4;
 public class Plafrorms
 {
     public string? Id { get; set; }
-    public string? Platform { get; set; }
+    public string? TittlePlatform { get; set; }
     public Types Type { get; set; }
     public List<Targets> Target { get; set; }
-    public Plafrorms(string? id, string? platform, Types type, List<Targets> target)
+    public Plafrorms(string? id, string? tittlePlatform, Types type, List<Targets> target)
     {
         Id = id;
-        Platform = platform;
+        TittlePlatform = tittlePlatform;
         Type = type;
         Target = target;
     }

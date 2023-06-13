@@ -4,7 +4,7 @@ using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace task4;
 
-public class Platform
+public class PlatformBuild
 {
     public string Platformtext()
     {
@@ -83,7 +83,7 @@ public class Platform
                                             Console.WriteLine("занято повторять нельзя");
                                             Console.ReadKey();
                                             Console.Clear();
-                                            var Platform = new Platform();
+                                            var Platform = new PlatformBuild();
                                             Console.WriteLine(Platform.Platformtext());
                                         }
 
@@ -201,7 +201,7 @@ public class Platform
                                             Console.WriteLine("занято повторять нельзя");
                                             Console.ReadKey();
                                             Console.Clear();
-                                            var Platform = new Platform();
+                                            var Platform = new PlatformBuild();
                                             Console.WriteLine(Platform.Platformtext());
                                         }
 
@@ -224,7 +224,7 @@ public class Platform
                                                     Console.WriteLine("у вас один таргет нельзя");
                                                     Console.ReadKey();
                                                     Console.Clear();
-                                                    var Platform = new Platform();
+                                                    var Platform = new PlatformBuild();
                                                     Console.WriteLine(Platform.Platformtext());
                                                 }
                                             }
@@ -296,12 +296,12 @@ public class Platform
                         foreach (var jsonlist in prowPlatform)
                         {
                             list.Add(jsonlist.Id);
-                            list.Add(jsonlist.Platform);
+                            list.Add(jsonlist.TittlePlatform);
                             listtype.Add(jsonlist.Type);
                             listtarget.Add(jsonlist.Target);
 
                             Console.Write(
-                                $"id: {jsonlist.Id} platform: {jsonlist.Platform} type:{jsonlist.Type.TittleType} ");
+                                $"id: {jsonlist.Id} platform: {jsonlist.TittlePlatform} type:{jsonlist.Type.TittleType} ");
                             foreach (var targetConsole in jsonlist.Target)
                             {
                                 Console.WriteLine($"target: {targetConsole.TittleTarget}");
@@ -428,7 +428,7 @@ public class Platform
                         foreach (var listfor in listdes)
                         {
                             Console.Write(
-                                $"id: {listfor.Id} platform: {listfor.Platform} type: {listfor.Type.TittleType}");
+                                $"id: {listfor.Id} platform: {listfor.TittlePlatform} type: {listfor.Type.TittleType}");
                             foreach (var jsonTarget in listfor.Target)
                             {
                                 Console.WriteLine(
