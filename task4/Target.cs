@@ -23,17 +23,17 @@ public class Target
                         string pathtargetraname = @"C:\Users\edgar\Desktop\Data.json";
                         string listplatformopen = (File.ReadAllText(pathplatformopen));
                         string listtargetraname = (File.ReadAllText(pathtargetraname));
-                        var read = JsonConvert.DeserializeObject<List<Targetlist>>(listtargetraname);
-                        var prowPlatformTarget = JsonConvert.DeserializeObject<List<Construct>>(listplatformopen);
+                        var targetJson = JsonConvert.DeserializeObject<List<Targets>>(listtargetraname);
+                        var prowPlatformTarget = JsonConvert.DeserializeObject<List<Plafrorms>>(listplatformopen);
 
-                        var listTarget = new List<string>();
-                        var list = new List<string>();
+                        var temptarget = new List<string>();
+                        var tempList = new List<string>();
 
                         foreach (var jsonScanPlatformTarget in prowPlatformTarget)
                         {
                             foreach (var scan in jsonScanPlatformTarget.Target)
                             {
-                                Console.WriteLine($"у вас в Platform есть target: {scan.TargetSpisok}");
+                                Console.WriteLine($"у вас в Platform есть target: {scan.TittleTarget}");
                             }
                         }
 
@@ -41,7 +41,7 @@ public class Target
                         {
                             foreach (var deletedScan in deletedWarning.Target)
                             {
-                                listTarget.Add(deletedScan.TargetSpisok);
+                                temptarget.Add(deletedScan.TittleTarget);
                             }
                         }
 
@@ -49,10 +49,10 @@ public class Target
                         {
                             foreach (var renameJsonTarget in jsonContains.Target)
                             {
-                                foreach (var jsontext in read)
+                                foreach (var jsontext in targetJson)
                                 {
-                                    list.Add(jsontext.TargetSpisok);
-                                    Console.WriteLine($"у вас есть таргеты {jsontext.TargetSpisok}");
+                                    tempList.Add(jsontext.TittleTarget);
+                                    Console.WriteLine($"у вас есть таргеты {jsontext.TittleTarget}");
                                 }
 
                                 Console.WriteLine("\nчто вы хотите\n удалить 1 изменить 2");
@@ -62,17 +62,17 @@ public class Target
                                     case "1":
                                         Console.Write("какой target вы хотите изменить: ");
                                         var deledettarget = Console.ReadLine();
-                                        if (list.Contains(deledettarget))
+                                        if (tempList.Contains(deledettarget))
                                         {
-                                            if (!listTarget.Contains(deledettarget))
+                                            if (!temptarget.Contains(deledettarget))
                                             {
                                                 string pathrename = @"C:\Users\edgar\Desktop\Data.json";
                                                 using (StreamWriter streamWriter =
                                                        new StreamWriter(pathrename, false))
                                                 {
-                                                    int index = list.IndexOf(deledettarget);
-                                                    read.RemoveAt(index);
-                                                    var json = JsonSerializer.Serialize(read);
+                                                    int index = tempList.IndexOf(deledettarget);
+                                                    targetJson.RemoveAt(index);
+                                                    var json = JsonSerializer.Serialize(targetJson);
                                                     streamWriter.WriteLine(json);
                                                     Console.WriteLine("файил записан");
                                                 }
@@ -93,14 +93,14 @@ public class Target
                                     case "2":
                                         Console.Write("какой target вы хотите изменить: ");
                                         var renametarget = Console.ReadLine();
-                                        if (list.Contains(renametarget) &&
-                                            renameJsonTarget.TargetSpisok.Contains(renametarget))
+                                        if (tempList.Contains(renametarget) &&
+                                            renameJsonTarget.TittleTarget.Contains(renametarget))
                                         {
                                             Console.WriteLine($"вы у строки {renametarget}");
                                             Console.Write($"на какую строку вы хотите заменить {renametarget}: ");
                                             string? renameinput = Console.ReadLine();
-                                            if (!list.Contains(renameinput) &&
-                                                !renameJsonTarget.TargetSpisok.Contains(renameinput))
+                                            if (!tempList.Contains(renameinput) &&
+                                                !renameJsonTarget.TittleTarget.Contains(renameinput))
                                             {
                                                 if (renameinput.Length == 0)
                                                 {
@@ -119,9 +119,9 @@ public class Target
                                                         {
                                                             foreach (var listRanameTragte in pushTarget.Target)
                                                             {
-                                                                if (listRanameTragte.TargetSpisok == renametarget)
+                                                                if (listRanameTragte.TittleTarget == renametarget)
                                                                 {
-                                                                    listRanameTragte.TargetSpisok = renameinput;
+                                                                    listRanameTragte.TittleTarget = renameinput;
                                                                 }
                                                             }
                                                         }
@@ -134,9 +134,9 @@ public class Target
                                                     using (StreamWriter streamWriter =
                                                            new StreamWriter(pathrename, false))
                                                     {
-                                                        int index = list.IndexOf(renametarget);
-                                                        read[index].TargetSpisok = renameinput;
-                                                        var json = JsonSerializer.Serialize(read);
+                                                        int index = tempList.IndexOf(renametarget);
+                                                        targetJson[index].TittleTarget = renameinput;
+                                                        var json = JsonSerializer.Serialize(targetJson);
                                                         streamWriter.WriteLine(json);
                                                         Console.WriteLine("файил записан");
                                                         break;
@@ -177,12 +177,12 @@ public class Target
                     {
                         string pathtargetlist = @"C:\Users\edgar\Desktop\Data.json";
                         var readlist = (File.ReadAllText(pathtargetlist));
-                        var read = JsonConvert.DeserializeObject<List<Targetlist>>(readlist);
+                        var targetJson = JsonConvert.DeserializeObject<List<Targets>>(readlist);
 
                         var listcontein = new List<string>();
-                        foreach (var conteinJson in read)
+                        foreach (var conteinJson in targetJson)
                         {
-                            listcontein.Add(conteinJson.TargetSpisok);
+                            listcontein.Add(conteinJson.TittleTarget);
                         }
 
                         Console.Write("какой таргет хотите добавить?: ");
@@ -198,9 +198,9 @@ public class Target
                             {
                                 using (StreamWriter streamReader = new StreamWriter(pathtargetlist, false))
                                 {
-                                    Targetlist targetlist = new Targetlist(listtarget);
-                                    read?.Add(targetlist);
-                                    var jsontarget = JsonSerializer.Serialize(read);
+                                    Targets targets = new Targets(listtarget);
+                                    targetJson?.Add(targets);
+                                    var jsontarget = JsonSerializer.Serialize(targetJson);
                                     streamReader.WriteLine(jsontarget);
                                     Console.WriteLine("файл записан");
                                 }
@@ -223,19 +223,19 @@ public class Target
                 case "3":
                     string pathtargeopen = @"C:\Users\edgar\Desktop\Data.json";
                     string listtargetopen = (File.ReadAllText(pathtargeopen));
-                    var readrarget = JsonConvert.DeserializeObject<List<Targetlist>>(listtargetopen);
+                    var readrarget = JsonConvert.DeserializeObject<List<Targets>>(listtargetopen);
                     try
                     {
                         foreach (var jsontargetlist in readrarget)
                         {
-                            if (jsontargetlist.TargetSpisok.Length == 0)
+                            if (jsontargetlist.TittleTarget.Length == 0)
                             {
                                 Console.WriteLine("нужных данных нет");
                             }
 
                             else
                             {
-                                Console.WriteLine(jsontargetlist.TargetSpisok);
+                                Console.WriteLine(jsontargetlist.TittleTarget);
                             }
                         }
 
