@@ -2,7 +2,7 @@ using Microsoft;
 using Newtonsoft.Json;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 
-namespace task4;
+namespace Task;
 
 public class Type
 {
@@ -20,27 +20,27 @@ public class Type
                     try
                     {
                         string pathPlatform = @"C:\Users\edgar\Desktop\students.json";
-                        string pathtype = @"C:\Users\edgar\Desktop\objects.json";
-                        string listtypename = (File.ReadAllText(pathtype));
+                        string pathType = @"C:\Users\edgar\Desktop\objects.json";
+                        string listType = (File.ReadAllText(pathType));
                         string listPatform = (File.ReadAllText(pathPlatform));
-                        var read = JsonConvert.DeserializeObject<List<Types>>(listtypename);
-                        var readplatform = JsonConvert.DeserializeObject<List<Plafrorms>>(listPatform);
+                        var readType = JsonConvert.DeserializeObject<List<Types>>(listType);
+                        var readPlatform = JsonConvert.DeserializeObject<List<Plafrorms>>(listPatform);
 
-                        var listtemp = new List<string>();
-                        var listPlatformtemp = new List<string>();
-                        var listTypetemp = new List<string>();
+                        var listTemp = new List<string>();
+                        var listPlatformTemp = new List<string>();
+                        var listTypeTemp = new List<string>();
 
-                        foreach (var jsontext in read)
+                        foreach (var jsontext in readType)
                         {
-                            listtemp.Add(jsontext.TittleType);
+                            listTemp.Add(jsontext.TittleType);
                         }
 
-                        foreach (var warningType in readplatform)
+                        foreach (var warningType in readPlatform)
                         {
-                            listTypetemp.Add(warningType.Type.TittleType);
+                            listTypeTemp.Add(warningType.Type.TittleType);
                         }
 
-                        foreach (var jsonScan in readplatform)
+                        foreach (var jsonScan in readPlatform)
                         {
                             Console.WriteLine($"у вас в Platfomah есть type: {jsonScan.Type.TittleType}");
                         }
@@ -53,21 +53,20 @@ public class Type
                             case "1":
                                 Console.Write("какой type вы хотите удалить: ");
                                 var deletedtype = Console.ReadLine();
-                                if (listtemp.Contains(deletedtype))
+                                if (listTemp.Contains(deletedtype))
                                 {
-                                    if (!listTypetemp.Contains(deletedtype))
+                                    if (!listTypeTemp.Contains(deletedtype))
                                     {
                                         string pathrename = @"C:\Users\edgar\Desktop\objects.json";
                                         using (StreamWriter streamWriter = new StreamWriter(pathrename, false))
                                         {
-                                            int index = listtemp.IndexOf(deletedtype);
-                                            read.RemoveAt(index);
-                                            var json = JsonSerializer.Serialize(read);
+                                            int index = listTemp.IndexOf(deletedtype);
+                                            readType.RemoveAt(index);
+                                            var json = JsonSerializer.Serialize(readType);
                                             streamWriter.WriteLine(json);
                                             Console.WriteLine("файил записан");
                                         }
                                     }
-
                                     else
                                     {
                                         Console.WriteLine("ельзя заменить уже используется");
@@ -80,24 +79,23 @@ public class Type
 
                                 break;
                             case "2":
-                                foreach (var jsonPlaform in readplatform)
+                                foreach (var jsonPlaform in readPlatform)
                                 {
-                                    listPlatformtemp.Add(jsonPlaform.Type.TittleType);
+                                    listPlatformTemp.Add(jsonPlaform.Type.TittleType);
 
                                     Console.Write("какой type вы хотите изменить: ");
                                     var renametype = Console.ReadLine();
-                                    if (listtemp.Contains(renametype) || listPlatformtemp.Contains(renametype))
+                                    if (listTemp.Contains(renametype) || listPlatformTemp.Contains(renametype))
                                     {
                                         Console.WriteLine($"вы у строки {renametype}");
                                         Console.Write($"на какую строку вы хотите заменить {renametype}: ");
                                         var renameinput = Console.ReadLine();
-                                        if (!listtemp.Contains(renameinput) && !listPlatformtemp.Contains(renameinput))
+                                        if (!listTemp.Contains(renameinput) && !listPlatformTemp.Contains(renameinput))
                                         {
                                             if (renameinput.Length == 0)
                                             {
                                                 Console.WriteLine("нельзя перезаписать на пустую строку");
                                             }
-
                                             else
                                             {
                                                 string pathPlatformrename = @"C:\Users\edgar\Desktop\students.json";
@@ -106,7 +104,7 @@ public class Type
                                                 using (StreamWriter streamWriter =
                                                        new StreamWriter(pathPlatformrename, false))
                                                 {
-                                                    foreach (var jsonRanamePlatform in readplatform)
+                                                    foreach (var jsonRanamePlatform in readPlatform)
                                                     {
                                                         if (jsonRanamePlatform.Type.TittleType == renametype)
                                                         {
@@ -114,23 +112,22 @@ public class Type
                                                         }
                                                     }
 
-                                                    var jsonPush = JsonSerializer.Serialize(readplatform);
+                                                    var jsonPush = JsonSerializer.Serialize(readPlatform);
                                                     streamWriter.WriteLine(jsonPush);
                                                     Console.WriteLine("файил записан");
                                                 }
 
                                                 using (StreamWriter streamWriter = new StreamWriter(pathrename, false))
                                                 {
-                                                    int index = listtemp.IndexOf(renametype);
-                                                    read[index].TittleType = renameinput;
-                                                    var json = JsonSerializer.Serialize(read);
+                                                    int index = listTemp.IndexOf(renametype);
+                                                    readType[index].TittleType = renameinput;
+                                                    var json = JsonSerializer.Serialize(readType);
                                                     streamWriter.WriteLine(json);
                                                     Console.WriteLine("файил записан");
                                                     break;
                                                 }
                                             }
                                         }
-
                                         else
                                         {
                                             Console.WriteLine("такое поле занято");
@@ -143,26 +140,21 @@ public class Type
                                         break;
                                     }
                                 }
-
                                 break;
-
-
-                                Console.ReadKey();
                         }
                     }
                     catch (Exception e)
                     {
                         Console.WriteLine("ваш json кривой");
                     }
-
                     Console.ReadKey();
                     break;
                 case "2":
                     try
                     {
-                        string path = @"C:\Users\edgar\Desktop\objects.json";
-                        var typeread = (File.ReadAllText(path));
-                        var typeJsons = JsonConvert.DeserializeObject<List<Types>>(typeread);
+                        string pathType = @"C:\Users\edgar\Desktop\objects.json";
+                        var typeRead = (File.ReadAllText(pathType));
+                        var typeJsons = JsonConvert.DeserializeObject<List<Types>>(typeRead);
 
                         var typeList = new List<string>();
 
@@ -180,10 +172,9 @@ public class Type
                             {
                                 Console.WriteLine("вы не чего не написали");
                             }
-
                             else
                             {
-                                using (StreamWriter streamWriter = new StreamWriter(path, false))
+                                using (StreamWriter streamWriter = new StreamWriter(pathType, false))
                                 {
                                     Types types = new Types(listtyperead);
                                     typeJsons?.Add(types);
@@ -193,7 +184,6 @@ public class Type
                                 }
                             }
                         }
-
                         else
                         {
                             Console.WriteLine("занято");
@@ -209,18 +199,17 @@ public class Type
                     Console.ReadKey();
                     break;
                 case "3":
-                    string pathtargeopen = @"C:\Users\edgar\Desktop\objects.json";
-                    string listtargetopen = (File.ReadAllText(pathtargeopen));
-                    var readrarget = JsonConvert.DeserializeObject<List<Types>>(listtargetopen);
+                    string pathTarget = @"C:\Users\edgar\Desktop\objects.json";
+                    string readTarget = (File.ReadAllText(pathTarget));
+                    var disType = JsonConvert.DeserializeObject<List<Types>>(readTarget);
                     try
                     {
-                        foreach (var jsontargetlist in readrarget)
+                        foreach (var jsontargetlist in disType)
                         {
                             if (jsontargetlist.TittleType.Length == 0)
                             {
                                 Console.WriteLine("нет нужных данных");
                             }
-
                             else
                             {
                                 Console.WriteLine(jsontargetlist.TittleType);
@@ -234,12 +223,11 @@ public class Type
                         Console.WriteLine("нужного типа нет");
                         Console.ReadKey();
                     }
-
                     break;
                 case "4":
                     Console.Clear();
                     var programm = new Product();
-                    Console.WriteLine(programm.tasknumber());
+                    Console.WriteLine(programm.Menu());
                     break;
                 default:
                     Console.WriteLine("не верный выриант");

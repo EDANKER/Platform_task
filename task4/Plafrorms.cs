@@ -1,4 +1,4 @@
-namespace task4;
+namespace Task;
 
 public class Plafrorms
 {

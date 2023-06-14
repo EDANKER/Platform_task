@@ -2,7 +2,7 @@ using Microsoft;
 using Newtonsoft.Json;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 
-namespace task4;
+namespace Task;
 
 public class PlatformBuild
 {
@@ -24,27 +24,27 @@ public class PlatformBuild
                         case "1":
                             try
                             {
-                                string pathplatfor = @"C:\Users\edgar\Desktop\students.json";
-                                string pathtarget = @"C:\Users\edgar\Desktop\Data.json";
-                                string listplatfor = (File.ReadAllText(pathplatfor));
-                                string listtargetraname = (File.ReadAllText(pathtarget));
-                                var targetJson = JsonConvert.DeserializeObject<List<Targets>>(listtargetraname);
-                                var prowPlatformrename = JsonConvert.DeserializeObject<List<Plafrorms>>(listplatfor);
+                                string pathPlatform = @"C:\Users\edgar\Desktop\students.json";
+                                string pathTarget = @"C:\Users\edgar\Desktop\Data.json";
+                                string listPlatform = (File.ReadAllText(pathPlatform));
+                                string listTarget = (File.ReadAllText(pathTarget));
+                                var targetJson = JsonConvert.DeserializeObject<List<Targets>>(listTarget);
+                                var targetJsonPlatfom = JsonConvert.DeserializeObject<List<Plafrorms>>(listPlatform);
 
                                 int count = 0;
                                 int countTarget = 0;
 
-                                var listplatformtemp = new List<string>();
+                                var listPlatformTemp = new List<string>();
 
-                                foreach (var jsonPlatformRead in prowPlatformrename)
+                                foreach (var jsonPlatformRead in targetJsonPlatfom)
                                 {
                                     foreach (var jsonListAdd in jsonPlatformRead.Target)
                                     {
-                                        listplatformtemp.Add(jsonListAdd.TittleTarget);
+                                        listPlatformTemp.Add(jsonListAdd.TittleTarget);
                                     }
                                 }
 
-                                foreach (var spisokTargetlist in prowPlatformrename)
+                                foreach (var spisokTargetlist in targetJsonPlatfom)
                                 {
                                     Console.WriteLine($"в базе данных есть id {spisokTargetlist.Id}");
                                     count++;
@@ -60,7 +60,7 @@ public class PlatformBuild
                                         $"\nу вас есть таргеты в базе данных {++countTarget} {listNumberTarget.TittleTarget}");
                                 }
 
-                                List<Targets> _targetlists = new List<Targets>();
+                                List<Targets> targetList = new List<Targets>();
                                 Console.Write("сколько таргетов вы хотите добавить: ");
                                 int addTarget = Convert.ToInt32(Console.ReadLine());
                                 if (countTarget >= addTarget)
@@ -71,14 +71,14 @@ public class PlatformBuild
                                             $"вы у строки {inputPlatform} какой target вы хотите ему добавить: ");
                                         var renamePlatform = Console.ReadLine();
                                         int indexAddTrget = Convert.ToInt32(renamePlatform);
-                                        if (indexAddTrget < 1 && indexAddTrget > prowPlatformrename.Count)
+                                        if (indexAddTrget < 1 && indexAddTrget > targetJsonPlatfom.Count)
                                         {
                                             Console.WriteLine("не верный ответ");
                                         }
 
                                         var newObgTargetAdd = targetJson[indexAddTrget - 1];
 
-                                        if (_targetlists.Contains(newObgTargetAdd))
+                                        if (targetList.Contains(newObgTargetAdd))
                                         {
                                             Console.WriteLine("занято повторять нельзя");
                                             Console.ReadKey();
@@ -87,27 +87,19 @@ public class PlatformBuild
                                             Console.WriteLine(Platform.Platformtext());
                                         }
 
-                                        // if (listplatform.Contains(newObgTargetAdd.TargetSpisok))
-                                        // {
-                                        //     Console.WriteLine("уже используется");
-                                        //     break;
-                                        // }
-
-
-                                        _targetlists.Add(newObgTargetAdd);
+                                        targetList.Add(newObgTargetAdd);
                                     }
 
-                                    foreach (var variableConstruct in prowPlatformrename)
+                                    foreach (var variableConstruct in targetJsonPlatfom)
                                     {
                                         if (variableConstruct.Id == inputPlatform)
                                         {
-                                            foreach (var listString in _targetlists)
+                                            foreach (var listString in targetList)
                                             {
                                                 if (listString.TittleTarget != inputPlatform)
                                                 {
                                                     variableConstruct.Target.Add(listString);
                                                 }
-
                                                 else
                                                 {
                                                     Console.WriteLine("уже испульзуется");
@@ -116,16 +108,14 @@ public class PlatformBuild
                                         }
                                     }
 
-                                    string pathrename = @"C:\Users\edgar\Desktop\students.json";
-                                    using (StreamWriter streamWriter =
-                                           new StreamWriter(pathrename, false))
+                                    string pathPush = @"C:\Users\edgar\Desktop\students.json";
+                                    using (StreamWriter streamWriter = new StreamWriter(pathPush, false))
                                     {
-                                        var jsonPlatfrom = JsonSerializer.Serialize(prowPlatformrename);
+                                        var jsonPlatfrom = JsonSerializer.Serialize(targetJsonPlatfom);
                                         streamWriter.WriteLine(jsonPlatfrom);
                                         Console.WriteLine("файил записан");
                                     }
                                 }
-
                                 else
                                 {
                                     Console.WriteLine("столько нет");
@@ -142,27 +132,27 @@ public class PlatformBuild
                         case "2":
                             try
                             {
-                                string pathplatfor = @"C:\Users\edgar\Desktop\students.json";
-                                string pathtarget = @"C:\Users\edgar\Desktop\Data.json";
-                                string listplatfor = (File.ReadAllText(pathplatfor));
-                                string listtargetraname = (File.ReadAllText(pathtarget));
-                                var targetJson = JsonConvert.DeserializeObject<List<Targets>>(listtargetraname);
-                                var prowPlatformrename = JsonConvert.DeserializeObject<List<Plafrorms>>(listplatfor);
+                                string pathPlatform = @"C:\Users\edgar\Desktop\students.json";
+                                string pathTarget = @"C:\Users\edgar\Desktop\Data.json";
+                                string listPlatform = (File.ReadAllText(pathPlatform));
+                                string listTarget = (File.ReadAllText(pathTarget));
+                                var targetJson = JsonConvert.DeserializeObject<List<Targets>>(listTarget);
+                                var targetJsonPlatform = JsonConvert.DeserializeObject<List<Plafrorms>>(listPlatform);
 
                                 int count = 0;
                                 int countTarget = 0;
 
-                                var listplatformtemp = new List<string>();
+                                var listPatformTemp = new List<string>();
 
-                                foreach (var jsonPlatformRead in prowPlatformrename)
+                                foreach (var jsonPlatformRead in targetJsonPlatform)
                                 {
                                     foreach (var jsonListAdd in jsonPlatformRead.Target)
                                     {
-                                        listplatformtemp.Add(jsonListAdd.TittleTarget);
+                                        listPatformTemp.Add(jsonListAdd.TittleTarget);
                                     }
                                 }
 
-                                foreach (var spisokTargetlist in prowPlatformrename)
+                                foreach (var spisokTargetlist in targetJsonPlatform)
                                 {
                                     Console.WriteLine($"в базе данных есть id {spisokTargetlist.Id}");
                                     count++;
@@ -189,7 +179,7 @@ public class PlatformBuild
                                             $"вы у строки {inputPlatform} какой target вы хотите ему удалить: ");
                                         var renamePlatform = Console.ReadLine();
                                         int indexAddTrget = Convert.ToInt32(renamePlatform);
-                                        if (indexAddTrget < 1 && indexAddTrget > prowPlatformrename.Count)
+                                        if (indexAddTrget < 1 && indexAddTrget > targetJsonPlatform.Count)
                                         {
                                             Console.WriteLine("не верный ответ");
                                         }
@@ -208,7 +198,7 @@ public class PlatformBuild
                                         _targetlists.Add(newObgTargetAdd);
                                     }
 
-                                    foreach (var variableConstruct in prowPlatformrename)
+                                    foreach (var variableConstruct in targetJsonPlatform)
                                     {
                                         if (variableConstruct.Id == inputPlatform)
                                         {
@@ -218,7 +208,6 @@ public class PlatformBuild
                                                 {
                                                     variableConstruct.Target.Remove(listString);
                                                 }
-
                                                 else
                                                 {
                                                     Console.WriteLine("у вас один таргет нельзя");
@@ -231,16 +220,15 @@ public class PlatformBuild
                                         }
                                     }
 
-                                    string pathrename = @"C:\Users\edgar\Desktop\students.json";
+                                    string pathPush = @"C:\Users\edgar\Desktop\students.json";
                                     using (StreamWriter streamWriter =
-                                           new StreamWriter(pathrename, false))
+                                           new StreamWriter(pathPush, false))
                                     {
-                                        var jsonPlatfrom = JsonSerializer.Serialize(prowPlatformrename);
+                                        var jsonPlatfrom = JsonSerializer.Serialize(targetJsonPlatform);
                                         streamWriter.WriteLine(jsonPlatfrom);
                                         Console.WriteLine("файил записан");
                                     }
                                 }
-
                                 else
                                 {
                                     Console.WriteLine("столько нет");
@@ -264,30 +252,29 @@ public class PlatformBuild
                 case "2":
                     try
                     {
-                        string pathplatformopen = @"C:\Users\edgar\Desktop\students.json";
-                        string pathtargeopen = @"C:\Users\edgar\Desktop\Data.json";
-                        string pathtypeopen = @"C:\Users\edgar\Desktop\objects.json";
-                        string listplatformopen = (File.ReadAllText(pathplatformopen));
-                        string listtypeopen = (File.ReadAllText(pathtypeopen));
-                        string listtargetopen = (File.ReadAllText(pathtargeopen));
+                        string pathPlatform = @"C:\Users\edgar\Desktop\students.json";
+                        string pathTarget = @"C:\Users\edgar\Desktop\Data.json";
+                        string pathType = @"C:\Users\edgar\Desktop\objects.json";
+                        string listPlatform = (File.ReadAllText(pathPlatform));
+                        string listType = (File.ReadAllText(pathType));
+                        string listTarget = (File.ReadAllText(pathTarget));
 
-                        var prowType = JsonConvert.DeserializeObject<List<Types>>(listtypeopen);
-                        var prowTarget = JsonConvert.DeserializeObject<List<Targets>>(listtargetopen);
-                        var prowPlatform = JsonConvert.DeserializeObject<List<Plafrorms>>(listplatformopen);
+                        var prowType = JsonConvert.DeserializeObject<List<Types>>(listType);
+                        var prowTarget = JsonConvert.DeserializeObject<List<Targets>>(listTarget);
+                        var prowPlatform = JsonConvert.DeserializeObject<List<Plafrorms>>(listPlatform);
 
-
-                        bool istype = false;
+                        bool isType = false;
                         bool isTarget = false;
 
                         var listtype = new List<Types>();
                         var listtarget = new List<List<Targets>>();
-                        var list = new List<string?>();
+                        var listTemp = new List<string?>();
 
-                        var indextTarget = new List<string>();
+                        var indextTargetTemp = new List<string>();
 
                         foreach (var targetindex in prowTarget)
                         {
-                            indextTarget.Add(targetindex.TittleTarget);
+                            indextTargetTemp.Add(targetindex.TittleTarget);
                         }
 
                         int count = 0;
@@ -295,8 +282,8 @@ public class PlatformBuild
 
                         foreach (var jsonlist in prowPlatform)
                         {
-                            list.Add(jsonlist.Id);
-                            list.Add(jsonlist.TittlePlatform);
+                            listTemp.Add(jsonlist.Id);
+                            listTemp.Add(jsonlist.TittlePlatform);
                             listtype.Add(jsonlist.Type);
                             listtarget.Add(jsonlist.Target);
 
@@ -310,11 +297,11 @@ public class PlatformBuild
 
                         Console.Write("выбирите свободную ячейку: ");
                         var id = Console.ReadLine();
-                        if (!list.Contains(id))
+                        if (!listTemp.Contains(id))
                         {
                             Console.Write("выбирите PLatform: ");
                             var platforminput = Console.ReadLine();
-                            if (!list.Contains(platforminput))
+                            if (!listTemp.Contains(platforminput))
                             {
                                 foreach (var scanType in prowType)
                                 {
@@ -365,33 +352,24 @@ public class PlatformBuild
                                             {
                                                 Console.WriteLine("уже занят");
                                             }
-
                                             else
                                             {
                                                 targetlist.Add(newObj);
                                             }
                                         }
-
-                                        if (true)
+                                        
+                                        using (StreamWriter streamWriter = new StreamWriter(pathPlatform, false))
                                         {
-                                            using (StreamWriter streamWriter =
-                                                   new StreamWriter(pathplatformopen, false))
-                                            {
-                                                Plafrorms plafrorms =
-                                                    new Plafrorms(id, platforminput, typelist, targetlist);
+                                            Plafrorms plafrorms =
+                                                new Plafrorms(id, platforminput, typelist, targetlist);
 
-                                                prowPlatform.Add(plafrorms);
+                                            prowPlatform.Add(plafrorms);
 
-                                                var json = JsonSerializer.Serialize(prowPlatform);
+                                            var json = JsonSerializer.Serialize(prowPlatform);
 
-                                                streamWriter.WriteLine(json);
-                                                Console.WriteLine("файл сохранен");
-                                                break;
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Console.WriteLine("такого нет");
+                                            streamWriter.WriteLine(json);
+                                            Console.WriteLine("файл сохранен");
+                                            break;
                                         }
                                     }
                                     else
@@ -400,20 +378,17 @@ public class PlatformBuild
                                     }
                                 }
                             }
-
                             else
                             {
                                 Console.WriteLine($"{platforminput} занят");
                             }
                         }
-
                         else
                         {
                             Console.WriteLine($"{id} занят");
                         }
                     }
-                    catch
-                        (Exception e)
+                    catch (Exception e)
                     {
                         Console.WriteLine("не верный формат");
                     }
@@ -445,7 +420,7 @@ public class PlatformBuild
                 case "4":
                     Console.Clear();
                     var programm = new Product();
-                    Console.WriteLine(programm.tasknumber());
+                    Console.WriteLine(programm.Menu());
                     break;
                 default:
                     Console.WriteLine("не верный вариант ответа");
