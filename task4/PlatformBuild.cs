@@ -34,23 +34,12 @@ public class PlatformBuild
                                 int count = 0;
                                 int countTarget = 0;
 
-                                var listPlatformTemp = new List<string>();
-
-                                foreach (var jsonPlatformRead in targetJsonPlatfom)
-                                {
-                                    foreach (var jsonListAdd in jsonPlatformRead.Target)
-                                    {
-                                        listPlatformTemp.Add(jsonListAdd.TittleTarget);
-                                    }
-                                }
-
                                 foreach (var spisokTargetlist in targetJsonPlatfom)
                                 {
                                     Console.WriteLine($"в базе данных есть id {spisokTargetlist.Id}");
                                     count++;
                                 }
-
-
+                                
                                 Console.Write(
                                     $"выбирите id к которому хотите добавить еще таргет: ");
                                 string? inputPlatform = Console.ReadLine();
@@ -90,20 +79,26 @@ public class PlatformBuild
                                         targetList.Add(newObgTargetAdd);
                                     }
 
+                                    var listPlatformTemp = new List<string>();
+
+                                    foreach (var jsonPlatformRead in targetJsonPlatfom)
+                                    {
+                                        foreach (var jsonListAdd in jsonPlatformRead.Target)
+                                        {
+                                            if (jsonListAdd.TittleTarget == inputPlatform)
+                                            {
+                                                listPlatformTemp.Add(jsonListAdd.TittleTarget);
+                                            }
+                                        }
+                                    }
+
                                     foreach (var variableConstruct in targetJsonPlatfom)
                                     {
                                         if (variableConstruct.Id == inputPlatform)
                                         {
                                             foreach (var listString in targetList)
                                             {
-                                                if (listString.TittleTarget != inputPlatform)
-                                                {
-                                                    variableConstruct.Target.Add(listString);
-                                                }
-                                                else
-                                                {
-                                                    Console.WriteLine("уже испульзуется");
-                                                }
+                                                variableConstruct.Target.Add(listString);
                                             }
                                         }
                                     }
@@ -357,7 +352,7 @@ public class PlatformBuild
                                                 targetlist.Add(newObj);
                                             }
                                         }
-                                        
+
                                         using (StreamWriter streamWriter = new StreamWriter(pathPlatform, false))
                                         {
                                             Plafrorms plafrorms =

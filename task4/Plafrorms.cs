@@ -14,6 +14,18 @@ public class Plafrorms
         Target = target;
     }
     
+    public override bool Equals(object? obj)
+    {
+        if (obj == null)
+            return false;
+
+        if (obj == this)
+            return true;
+
+        var newObj = (Plafrorms)obj;
+        
+        return Target == newObj.Target;
+    }
 }
 
 public class Targets
