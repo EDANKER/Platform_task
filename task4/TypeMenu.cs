@@ -4,7 +4,7 @@ using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace Task;
 
-public class Type
+public class TypeMenu
 {
     public string Plat()
     {
@@ -145,7 +145,7 @@ public class Type
                     }
                     catch (Exception e)
                     {
-                        Console.WriteLine("ваш json кривой");
+                        Console.WriteLine("не вернный формат");
                     }
                     Console.ReadKey();
                     break;
@@ -193,7 +193,7 @@ public class Type
 
                     catch (Exception e)
                     {
-                        Console.WriteLine("файи пуст");
+                        Console.WriteLine("не верный формат");
                     }
 
                     Console.ReadKey();

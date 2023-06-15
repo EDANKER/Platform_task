@@ -1,6 +1,5 @@
 using System.Runtime.CompilerServices;
 using Task;
-using Type = Task.Type;
 
 namespace Task
 {
@@ -31,12 +30,12 @@ namespace Task
                         break;
                     case "2":
                         Console.Clear();
-                        var type = new Type();
+                        var type = new TypeMenu();
                         Console.WriteLine(type.Plat());
                         break;
                     case "3":
                         Console.Clear();
-                        var Target = new Target();
+                        var Target = new TargetMenu();
                         Console.WriteLine(Target.Targertext());
                         break;
                     case "4":

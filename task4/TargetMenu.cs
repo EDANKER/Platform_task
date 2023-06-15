@@ -4,7 +4,7 @@ using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace Task;
 
-public class Target
+public class TargetMenu
 {
     public string? Targertext()
     {
@@ -162,7 +162,7 @@ public class Target
                     }
                     catch (Exception e)
                     {
-                        Console.WriteLine("ваш json кривой");
+                        Console.WriteLine("не вернный формат");
                     }
                     break;
                 case "2":
@@ -206,7 +206,7 @@ public class Target
                     }
                     catch (Exception e)
                     {
-                        Console.WriteLine("файи пуст");
+                        Console.WriteLine("не вернный формат");
                     }
                     break;
                 case "3":
