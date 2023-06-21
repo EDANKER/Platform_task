@@ -34,6 +34,8 @@ public class PlatformBuild
                                 int count = 0;
                                 int countTarget = 0;
 
+                                var listPlatformTemp = new List<string>();
+
                                 foreach (var spisokTargetlist in targetJsonPlatform)
                                 {
                                     Console.WriteLine($"в базе данных есть id {spisokTargetlist.Id}");
@@ -79,18 +81,23 @@ public class PlatformBuild
                                         targetList.Add(newObgTargetAdd);
                                     }
 
-                                    var listPlatformTemp = new List<string>();
 
-                                    foreach (var jsonPlatformRead in targetJsonPlatform)
+                                    foreach (var jsonAddLIst in targetJsonPlatform)
                                     {
-                                        foreach (var jsonListAdd in jsonPlatformRead.Target)
+                                        foreach (var tittleJson in jsonAddLIst.Target)
                                         {
-                                            if (jsonListAdd.TittleTarget == inputPlatform)
+                                            if (jsonAddLIst.Id == inputPlatform)
                                             {
-                                                listPlatformTemp.Add(jsonListAdd.TittleTarget);
+                                                listPlatformTemp.Add(tittleJson.TittleTarget);
                                             }
                                         }
                                     }
+
+                                    foreach (var json in listPlatformTemp)
+                                    {
+                                        Console.WriteLine(json);
+                                    }
+
 
                                     foreach (var variableConstruct in targetJsonPlatform)
                                     {
@@ -99,6 +106,14 @@ public class PlatformBuild
                                             foreach (var listString in targetList)
                                             {
                                                 variableConstruct.Target.Add(listString);
+                                                if (listPlatformTemp.Contains(listString.TittleTarget))
+                                                {
+                                                    Console.WriteLine("занято повторять нельзя");
+                                                    Console.ReadKey();
+                                                    Console.Clear();
+                                                    var Platform = new PlatformBuild();
+                                                    Console.WriteLine(Platform.Platformtext());
+                                                }
                                             }
                                         }
                                     }
@@ -120,7 +135,7 @@ public class PlatformBuild
                             }
                             catch (Exception e)
                             {
-                                Console.WriteLine("не верный формат");
+                                Console.WriteLine("не верный формат" + e);
                             }
 
                             break;
@@ -392,73 +407,9 @@ public class PlatformBuild
                 case "3":
                     try
                     {
-                        string pathTarget = @"C:\Users\edgar\Desktop\Data.json";
-                        string pathType = @"C:\Users\edgar\Desktop\objects.json";
                         string path = (File.ReadAllText(@"C:\Users\edgar\Desktop\students.json"));
-                        string listType = (File.ReadAllText(pathType));
-                        string listTarget = (File.ReadAllText(pathTarget));
                         var listdes = JsonConvert.DeserializeObject<List<Plafrorms>>(path);
-                        var listTargetdes = JsonConvert.DeserializeObject<List<Targets>>(listTarget);
-                        var prowType = JsonConvert.DeserializeObject<List<Types>>(listType);
-
-                        var listTargetTemp = new List<string>();
-                        var listTypeTemp = new List<string>();
-                        var listPlatformTargetTemp = new List<string>();
-                        var listPlatformTypeTemp = new List<string>();
-
-                        foreach (var jsonAddListTarget in listTargetdes)
-                        {
-                            listTargetTemp.Add(jsonAddListTarget.TittleTarget);
-                        }
-
-                        foreach (var jsonAddListType in prowType)
-                        {
-                            listTypeTemp.Add(jsonAddListType.TittleType);
-                        }
-
-                        foreach (var jsonAddPlatform in listdes)
-                        {
-                            listPlatformTypeTemp.Add(jsonAddPlatform.Type.TittleType);
-                            foreach (var tittleJson in jsonAddPlatform.Target)
-                            {
-                                listPlatformTargetTemp.Add(tittleJson.TittleTarget);
-                            }
-                        }
-
-                        if (listTargetTemp != listPlatformTargetTemp)
-                        {
-                            listPlatformTargetTemp = listTargetTemp;
-                        }
-
-                        foreach (var json in listPlatformTargetTemp)
-                        {
-                            Console.WriteLine(json);
-                        }
-
-                        // if (listTypeTemp != listPlatformTypeTemp)
-                        // {
-                        //     break;
-                        // }
-
-                        string pathPlatform = @"C:\Users\edgar\Desktop\students.json";
-                        using (StreamWriter streamWriter = new StreamWriter(pathPlatform, false))
-                        {
-                            foreach (var jsonSerelaiz in listPlatformTargetTemp)
-                            {
-                                foreach (var jsonList in listdes)
-                                {
-                                    foreach (var jsonPush in jsonList.Target)
-                                    {
-                                        jsonPush.TittleTarget = jsonSerelaiz;
-                                    }
-                                }
-                            }
-
-                            var json = JsonSerializer.Serialize(listdes);
-                            streamWriter.WriteLine(json);
-                            Console.WriteLine("Good");
-                        }
-
+                        
                         foreach (var listfor in listdes)
                         {
                             Console.Write(
