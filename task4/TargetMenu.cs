@@ -91,7 +91,7 @@ public class TargetMenu
                                     case "2":
                                         Console.Write("какой target вы хотите изменить: ");
                                         var renametarget = Console.ReadLine();
-                                        if (listTemp.Contains(renametarget) &&
+                                        if (listTemp.Contains(renametarget) ||
                                             renameJsonTarget.TittleTarget.Contains(renametarget))
                                         {
                                             Console.WriteLine($"вы у строки {renametarget}");
@@ -107,8 +107,9 @@ public class TargetMenu
                                                 else
                                                 {
                                                     string pathPlatformRename = @"C:\Users\edgar\Desktop\students.json";
+                                                    string path1 = @"C:\Users\edgar\Desktop\students1.json";
                                                     string pathRenameType = @"C:\Users\edgar\Desktop\Data.json";
-
+                                                    
                                                     using (StreamWriter streamWriter = new StreamWriter(pathPlatformRename, false))
                                                     {
                                                         foreach (var pushTarget in prowPlatformTarget)
@@ -126,7 +127,24 @@ public class TargetMenu
                                                         streamWriter.WriteLine(jsonTarget);
                                                         Console.WriteLine("файл записан");
                                                     }
+                                                    
+                                                    using (StreamWriter streamWriter = new StreamWriter(path1, false))
+                                                    {
+                                                        foreach (var pushTarget in prowPlatformTarget)
+                                                        {
+                                                            foreach (var listRanameTragte in pushTarget.Target)
+                                                            {
+                                                                if (listRanameTragte.TittleTarget == renametarget)
+                                                                {
+                                                                    listRanameTragte.TittleTarget = renameinput;
+                                                                }
+                                                            }
+                                                        }
 
+                                                        var jsonTarget = JsonSerializer.Serialize(prowPlatformTarget);
+                                                        streamWriter.WriteLine(jsonTarget);
+                                                    }
+                                                    
                                                     using (StreamWriter streamWriter = new StreamWriter(pathRenameType, false))
                                                     {
                                                         int index = listTemp.IndexOf(renametarget);

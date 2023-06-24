@@ -99,6 +99,7 @@ public class TypeMenu
                                             else
                                             {
                                                 string pathPlatformrename = @"C:\Users\edgar\Desktop\students.json";
+                                                string pathPlatformrename1 = @"C:\Users\edgar\Desktop\students1.json";
                                                 string pathrename = @"C:\Users\edgar\Desktop\objects.json";
 
                                                 using (StreamWriter streamWriter =
@@ -115,6 +116,21 @@ public class TypeMenu
                                                     var jsonPush = JsonSerializer.Serialize(readPlatform);
                                                     streamWriter.WriteLine(jsonPush);
                                                     Console.WriteLine("файил записан");
+                                                }
+                                                
+                                                using (StreamWriter streamWriter =
+                                                       new StreamWriter(pathPlatformrename1, false))
+                                                {
+                                                    foreach (var jsonRanamePlatform in readPlatform)
+                                                    {
+                                                        if (jsonRanamePlatform.Type.TittleType == renametype)
+                                                        {
+                                                            jsonRanamePlatform.Type.TittleType = renameinput;
+                                                        }
+                                                    }
+
+                                                    var jsonPush = JsonSerializer.Serialize(readPlatform);
+                                                    streamWriter.WriteLine(jsonPush);
                                                 }
 
                                                 using (StreamWriter streamWriter = new StreamWriter(pathrename, false))

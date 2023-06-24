@@ -442,7 +442,6 @@ public class PlatformBuild
                         { 
                             var json = JsonSerializer.Serialize(listdes);
                             streamWriter.WriteLine(json);
-                            Console.WriteLine("файл сохранен");
                         }
                         foreach (var listfor in listdes)
                         {
