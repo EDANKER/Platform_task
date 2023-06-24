@@ -24,6 +24,7 @@ public class PlatformBuild
                         case "1":
                             try
                             {
+                                string pathPush1 = @"C:\Users\edgar\Desktop\students1.json";
                                 string pathPlatform = @"C:\Users\edgar\Desktop\students.json";
                                 string pathTarget = @"C:\Users\edgar\Desktop\Data.json";
                                 string listPlatform = (File.ReadAllText(pathPlatform));
@@ -120,6 +121,13 @@ public class PlatformBuild
 
                                     string pathPush = @"C:\Users\edgar\Desktop\students.json";
                                     using (StreamWriter streamWriter = new StreamWriter(pathPush, false))
+                                    {
+                                        var jsonPlatfrom = JsonSerializer.Serialize(targetJsonPlatform);
+                                        streamWriter.WriteLine(jsonPlatfrom);
+                                        Console.WriteLine("файил записан");
+                                    }
+
+                                    using (StreamWriter streamWriter = new StreamWriter(pathPush1, false))
                                     {
                                         var jsonPlatfrom = JsonSerializer.Serialize(targetJsonPlatform);
                                         streamWriter.WriteLine(jsonPlatfrom);
@@ -263,6 +271,7 @@ public class PlatformBuild
                     try
                     {
                         string pathPlatform = @"C:\Users\edgar\Desktop\students.json";
+                        string pathPlatform1 = @"C:\Users\edgar\Desktop\students1.json";
                         string pathTarget = @"C:\Users\edgar\Desktop\Data.json";
                         string pathType = @"C:\Users\edgar\Desktop\objects.json";
                         string listPlatform = (File.ReadAllText(pathPlatform));
@@ -379,6 +388,20 @@ public class PlatformBuild
 
                                             streamWriter.WriteLine(json);
                                             Console.WriteLine("файл сохранен");
+                                            prowPlatform.Remove(plafrorms);
+                                        }
+
+                                        using (StreamWriter streamWriter = new StreamWriter(pathPlatform1, false))
+                                        {
+                                            Plafrorms plafrorms =
+                                                new Plafrorms(id, platforminput, typelist, targetlist);
+
+                                            prowPlatform.Add(plafrorms);
+
+                                            var json = JsonSerializer.Serialize(prowPlatform);
+
+                                            streamWriter.WriteLine(json);
+                                            Console.WriteLine("файл сохранен");
                                             break;
                                         }
                                     }
@@ -408,8 +431,19 @@ public class PlatformBuild
                     try
                     {
                         string path = (File.ReadAllText(@"C:\Users\edgar\Desktop\students.json"));
+                        string path1 = (File.ReadAllText(@"C:\Users\edgar\Desktop\students1.json"));
                         var listdes = JsonConvert.DeserializeObject<List<Plafrorms>>(path);
+                        var listdes1 = JsonConvert.DeserializeObject<List<Plafrorms>>(path1);
+
+                        listdes = listdes1;
                         
+                        string pathPush = @"C:\Users\edgar\Desktop\students.json";
+                        using (StreamWriter streamWriter = new StreamWriter(pathPush, false))
+                        { 
+                            var json = JsonSerializer.Serialize(listdes);
+                            streamWriter.WriteLine(json);
+                            Console.WriteLine("файл сохранен");
+                        }
                         foreach (var listfor in listdes)
                         {
                             Console.Write(
